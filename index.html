@@ -220,6 +220,25 @@
                     <option value="neon cyberpunk, glowing effects, futuristic">Neon/Cyberpunk</option>
                     <option value="sketch hand-drawn, pencil texture, raw artistic">Hand Sketch</option>
                     <option value="pop art, bold colors, Ben-Day dots, comic style">Pop Art</option>
+                    <option value="anime manga style, cel shading, expressive eyes, bold outlines">Anime / Manga</option>
+                    <option value="pixel art, 8-bit retro game aesthetic, crisp square pixels">Pixel Art / 8-Bit</option>
+                    <option value="art deco style, geometric gold patterns, 1920s Gatsby aesthetic">Art Deco / Gatsby</option>
+                    <option value="steampunk style, brass gears, copper pipes, Victorian machinery">Steampunk</option>
+                    <option value="botanical illustration, detailed flowers and leaves, scientific vintage">Botanical / Floral</option>
+                    <option value="gothic medieval style, ornate borders, dark cathedral aesthetic">Gothic / Medieval</option>
+                    <option value="Memphis design, 1980s bold shapes, squiggles and dots, pastel colors">Memphis 80s</option>
+                    <option value="paper cutout style, layered depth, shadow effects, origami folds">Paper Cutout / Layered</option>
+                    <option value="chalkboard hand lettering, white chalk texture, casual script, doodles">Chalkboard / Hand Lettering</option>
+                    <option value="double exposure, silhouette filled with landscape or pattern, dreamy overlay">Double Exposure</option>
+                    <option value="zentangle doodle style, intricate patterns, meditative line work">Zentangle / Doodle</option>
+                    <option value="low poly 3D, faceted surfaces, polygon mesh, modern digital">Low Poly 3D</option>
+                    <option value="ink splatter sumi-e, Japanese brush strokes, black ink wash, minimal">Ink Splatter / Sumi-e</option>
+                    <option value="cinematic film still, dramatic lighting, depth of field, movie poster">Cinematic / Film</option>
+                    <option value="blueprint technical drawing, white lines on blue, schematic, engineering">Blueprint / Technical</option>
+                    <option value="sticker die-cut style, thick white border, kawaii cute, glossy">Sticker / Die-cut</option>
+                    <option value="woodcut linocut style, bold carved lines, high contrast black and white">Woodcut / Linocut</option>
+                    <option value="tribal tattoo style, bold black patterns, Polynesian inspired, symmetrical">Tribal / Tattoo</option>
+                    <option value="isometric 3D, 45 degree angle, clean blocks, architectural">Isometric 3D</option>
                 </select>
             </div>
             
@@ -506,10 +525,85 @@
         
         function copyForDiscord() {
             const text = document.getElementById('promptText').textContent;
-            // Recraft optimized version
             const recraftText = text + ', vector illustration, flat design, clean vector, scalable, t-shirt graphic';
             navigator.clipboard.writeText(recraftText).then(() => {
                 alert('✅ Recraft-optimierter Prompt kopiert!');
+            });
+        }
+        
+        // ===================== TEXT/TYPOGRAPHY GENERATOR =====================
+        
+        function generateTextPrompt() {
+            const customText = document.getElementById('customText').value.trim();
+            const fontStyle = document.getElementById('fontStyle').value;
+            const textColors = document.getElementById('textColors').value;
+            const textLayout = document.getElementById('textLayout').value;
+            const textVibe = document.getElementById('textVibe').value;
+            
+            // Collect text effects
+            const textEffects = [];
+            ['textShadow', 'textOutline', 'textDistressed', 'text3D', 'textGlow', 'textSwoosh', 'textStars', 'textBanner'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.checked) textEffects.push(el.value);
+            });
+            
+            // Build text prompt
+            let prompt = `Typography design for merch print: "${customText || 'YOUR TEXT HERE'}"`;
+            prompt += `, ${fontStyle}`;
+            prompt += `, ${textColors}`;
+            prompt += `, ${textLayout}`;
+            prompt += `, ${textVibe} vibe`;
+            
+            if (textEffects.length > 0) {
+                prompt += `, with ${textEffects.join(', ')}`;
+            }
+            
+            prompt += `, high contrast, print-ready vector, crisp edges, professional typography, suitable for t-shirt printing, 300dpi quality`;
+            
+            // Display
+            document.getElementById('textPromptText').textContent = prompt;
+            document.getElementById('textResult').classList.add('active');
+            
+            // Legal check for text
+            const textLegalList = document.getElementById('textLegalList');
+            textLegalList.innerHTML = '';
+            
+            const textChecks = [
+                { text: 'Keine geschützten Slogans oder Marken enthalten', safe: true },
+                { text: 'Eigener Text oder generische Begriffe verwendet', safe: true },
+                { text: 'Keine Songtexte oder Filmzitate', safe: true },
+                { text: 'Prüfe: "Keep Calm and..." ist in EU geschützt', safe: false, warning: true },
+                { text: 'Prüfe: Bekannte Phrasen wie "Just Do It" sind markenrechtlich geschützt', safe: false, warning: true }
+            ];
+            
+            textChecks.forEach(check => {
+                const li = document.createElement('li');
+                if (check.warning) {
+                    li.innerHTML = `⚠️ ${check.text}`;
+                    li.style.color = '#ffc107';
+                } else {
+                    li.innerHTML = `✅ ${check.text}`;
+                    li.style.color = '#4caf50';
+                }
+                textLegalList.appendChild(li);
+            });
+            
+            // Scroll to result
+            document.getElementById('textResult').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function copyTextPrompt() {
+            const text = document.getElementById('textPromptText').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Text-Prompt kopiert!');
+            });
+        }
+        
+        function copyTextForRecraft() {
+            const text = document.getElementById('textPromptText').textContent;
+            const recraftText = text + ', vector typography, clean text, scalable font, t-shirt graphic';
+            navigator.clipboard.writeText(recraftText).then(() => {
+                alert('✅ Recraft-optimierter Text-Prompt kopiert!');
             });
         }
     </script>
