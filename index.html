@@ -439,6 +439,139 @@
             </div>
         </div>
         
+        <!-- TEXT/TYPOGRAPHY GENERATOR SECTION -->
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 40px 0;">
+        
+        <h2 style="text-align: center; margin-bottom: 10px;">✍️ Text & Typography Generator</h2>
+        <p class="subtitle">Urheberrechtssichere Text-Designs für Merch</p>
+        
+        <div class="warning-box">
+            <h3>⚠️ Text-Rechtliche Hinweise</h3>
+            <ul>
+                <li class="safe">✅ Generische Begriffe: "Champion", "Game On", "Born To Win", "Stay Wild"</li>
+                <li class="safe">✅ Eigene erfundene Slogans und Wortspiele</li>
+                <li class="unsafe">❌ Songtexte, Filmzitate, Buchtitel (urheberrechtlich geschützt)</li>
+                <li class="unsafe">❌ Bekannte Slogans: "Just Do It", "I'm Lovin' It", "Think Different"</li>
+                <li class="warning">⚠️ "Keep Calm and..." ist in der EU geschützt!</li>
+            </ul>
+        </div>
+        
+        <div class="form-grid">
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>📝 Dein Text / Slogan</label>
+                <input type="text" id="customText" placeholder="z.B. Born To Ride, Game Over, Stay Wild..." maxlength="40">
+                <small style="color: #888; display: block; margin-top: 5px;">Max. 40 Zeichen — vermeide geschützte Slogans</small>
+            </div>
+            
+            <div class="form-group">
+                <label>🔤 Schrift-Stil</label>
+                <select id="fontStyle">
+                    <option value="bold varsity block letters, athletic sports font, college style">Varsity / College Sport</option>
+                    <option value="retro script font, flowing cursive, 1950s diner style">Retro Script / Kursiv</option>
+                    <option value="grunge distressed bold letters, cracked paint texture, punk rock">Grunge / Punk</option>
+                    <option value="elegant serif font, vintage book title, refined classic">Elegant Serif / Klassisch</option>
+                    <option value="hand drawn brush lettering, casual marker style, organic flow">Brush Lettering / Marker</option>
+                    <option value="outline hollow letters with double stroke, clean modern">Outline / Doppelstrich</option>
+                    <option value="bubble rounded letters, soft cartoon style, playful">Bubble / Cartoon</option>
+                    <option value="stencil cutout letters, military spray paint style, urban">Stencil / Militär</option>
+                    <option value="western cowboy font, wooden plank texture, saloon style">Western / Cowboy</option>
+                    <option value="gothic blackletter font, ornate medieval, heavy metal style">Blackletter / Gothic</option>
+                    <option value="neon tube letters, glowing outline, retro sign style">Neon Sign / Röhre</option>
+                    <option value="3D extruded letters with drop shadow, dimensional depth">3D Extruded</option>
+                    <option value="typewriter monospace font, vintage document style, mechanical">Typewriter / Mono</option>
+                    <option value="art deco geometric letters, 1920s glamour, gold and black">Art Deco / Gatsby</option>
+                    <option value="graffiti wildstyle letters, colorful fill, sharp edges">Graffiti / Wildstyle</option>
+                    <option value="japanese kanji brush style, bold ink strokes, minimal zen">Kanji / Zen Brush</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>🎨 Text-Farbschema</label>
+                <select id="textColors">
+                    <option value="white text on solid black background, maximum contrast">Weiß auf Schwarz</option>
+                    <option value="black text on solid white background, clean minimal">Schwarz auf Weiß</option>
+                    <option value="gradient text fill from orange to red, fiery colors">Feuer-Gradient</option>
+                    <option value="metallic gold text with subtle shimmer effect">Metallic Gold</option>
+                    <option value="metallic silver chrome text with reflections">Chrome / Silber</option>
+                    <option value="neon glow text in electric blue with dark background">Neon Blau</option>
+                    <option value="vintage distressed text in warm brown and cream">Vintage Braun/Creme</option>
+                    <option value="rainbow gradient letters, each letter different color">Regenbogen-Buchstaben</option>
+                    <option value="two-tone split: half black half white letters">Two-Tone Split</option>
+                    <option value="outline text with watercolor fill inside">Outline + Watercolor</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>✨ Text-Effekte</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="checkbox" id="textShadow" value="drop shadow behind letters"><span>Schatten</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="textOutline" value="thick outline stroke around letters"><span>Dicke Outline</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="textDistressed" value="distressed cracked texture on letters"><span>Distressed</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="text3D" value="3D bevel and emboss effect on letters"><span>3D Bevel</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="textGlow" value="soft outer glow around text"><span>Glow</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="textSwoosh" value="swoosh underline and accent lines"><span>Swoosh/Unterstrich</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="textStars" value="star and sparkle accents around text"><span>Sterne um Text</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="textBanner" value="ribbon banner behind text"><span>Ribbon Banner</span></label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>🖼️ Layout-Variante</label>
+                <select id="textLayout">
+                    <option value="centered single line, large and bold">Single Line — groß & fett</option>
+                    <option value="stacked two lines, top small bottom large">2 Zeilen — oben klein, unten groß</option>
+                    <option value="circular curved text following a circle path">Kreisförmig gebogen</option>
+                    <option value="arch curved text in a rainbow arc">Bogen / Arch</option>
+                    <option value="vertical stacked letters top to bottom">Vertikal gestapelt</option>
+                    <option value="scattered letters with artistic spacing">Zerstreut / Artistisch</option>
+                    <option value="text inside a badge or shield shape">Badge / Schild-Form</option>
+                    <option value="text with frame border around it">Text im Rahmen</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>🎭 Stimmung / Vibe</label>
+                <select id="textVibe">
+                    <option value="powerful motivational, gym workout energy">Motivierend / Gym</option>
+                    <option value="chill relaxed, coffee shop casual">Chill / Casual</option>
+                    <option value="funny humorous, jokester personality">Lustig / Humor</option>
+                    <option value="rebellious edgy, biker attitude">Rebellisch / Biker</option>
+                    <option value="retro nostalgic, vintage throwback">Retro / Nostalgisch</option>
+                    <option value="adventure outdoor, wilderness explorer">Abenteuer / Outdoor</option>
+                    <option value="geek nerd, gaming and tech culture">Geek / Nerd</option>
+                    <option value="loving caring, family and friends">Liebevoll / Familie</option>
+                    <option value="minimal zen, clean and peaceful">Minimal / Zen</option>
+                    <option value="party festive, celebration and fun">Party / Festlich</option>
+                </select>
+            </div>
+        </div>
+        
+        <button class="generate-btn" onclick="generateTextPrompt()" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">✍️ Text-Prompt Generieren</button>
+        
+        <div id="textResult" class="result-box">
+            <h3>✍️ Generierter Text-Prompt</h3>
+            <div class="prompt-output" id="textPromptText"></div>
+            <button class="copy-btn" onclick="copyTextPrompt()">📋 Kopieren</button>
+            <button class="copy-btn" onclick="copyTextForRecraft()" style="background: #5865F2;">💬 Für Recraft kopieren</button>
+            
+            <div class="legal-check">
+                <h4>✅ Text-Rechtliche Prüfung</h4>
+                <ul id="textLegalList"></ul>
+            </div>
+            
+            <div class="tip-box">
+                <h4>💡 Tipps für Text-Designs</h4>
+                <ul>
+                    <li>Kurze Texte (1-3 Wörter) wirken am besten auf Shirts</li>
+                    <li>Große Lesbarkeit = mehr Verkäufe</li>
+                    <li>Teste: Kann man den Text von 2 Metern lesen?</li>
+                    <li>Vermeide zu viele Effekte gleichzeitig (wirkt unruhig)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 40px 0;">
+        
         <footer>
             <p>Erstellt für niedigaming | Keine Garantie für rechtliche Sicherheit — immer selbst prüfen!</p>
         </footer>
