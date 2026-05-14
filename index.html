@@ -555,6 +555,12 @@
             </div>
             
             <div class="form-group">
+                <label>🔍 Hauptkeyword / Nische</label>
+                <input type="text" id="mainKeyword" placeholder="z.B. 'Football Mom', 'Gamer Life', 'Dog Dad' - wird automatisch an Listing übertragen" oninput="syncKeywordToListing()">
+                <p style="color: #888; font-size: 12px; margin-top: 8px;">💡 Wird automatisch an den Listing Generator übertragen</p>
+            </div>
+            
+            <div class="form-group">
                 <label>🎨 Motiv-Kategorie wählen</label>
                 
                 <div class="category-tabs" id="categoryTabs">
@@ -685,83 +691,6 @@
             <button class="seasonal-btn valentine" onclick="applySeasonal('valentine')">💝 Valentinstag</button>
             <button class="seasonal-btn patriotic" onclick="applySeasonal('patriotic')">🇺🇸 Patriotic</button>
             <button class="seasonal-btn fathers" onclick="applySeasonal('fathers')">👨 Vatertag</button>
-        </div>
-        
-        <!-- PROMPT TYP AUSWAHL -->
-        <div class="form-group" style="background: rgba(45,55,72,0.5); border-left: 4px solid #f093fb; margin: 20px 0; padding: 15px; border-radius: 8px;">
-            <label style="color: #f093fb; font-weight: 600;">📋 Was soll generiert werden?</label>
-            <div class="prompt-type-selector" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
-                <label class="prompt-type-option" style="flex: 1; min-width: 150px;">
-                    <input type="radio" name="promptType" value="design" checked onchange="togglePromptType('design')" style="display: none;">
-                    <span class="prompt-type-btn active" data-type="design" style="display: block; padding: 12px 16px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s;">
-                        🎨 <strong>Nur Design</strong>
-                        <small style="display: block; color: #888; font-size: 11px; margin-top: 4px;">Bild-Illustration</small>
-                    </span>
-                </label>
-                <label class="prompt-type-option" style="flex: 1; min-width: 150px;">
-                    <input type="radio" name="promptType" value="text" onchange="togglePromptType('text')" style="display: none;">
-                    <span class="prompt-type-btn" data-type="text" style="display: block; padding: 12px 16px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s;">
-                        ✍️ <strong>Nur Text</strong>
-                        <small style="display: block; color: #888; font-size: 11px; margin-top: 4px;">Typography/Slogan</small>
-                    </span>
-                </label>
-                <label class="prompt-type-option" style="flex: 1; min-width: 150px;">
-                    <input type="radio" name="promptType" value="combined" onchange="togglePromptType('combined')" style="display: none;">
-                    <span class="prompt-type-btn" data-type="combined" style="display: block; padding: 12px 16px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s;">
-                        🎨✍️ <strong>Design + Text</strong>
-                        <small style="display: block; color: #888; font-size: 11px; margin-top: 4px;">Kombiniert</small>
-                    </span>
-                </label>
-            </div>
-        </div>
-        
-        <!-- TEXT OPTIONS (nur sichtbar bei Text oder Combined) -->
-        <div id="textOptionsPanel" style="display: none; margin: 20px 0; padding: 20px; background: linear-gradient(135deg, rgba(240,147,251,0.1) 0%, rgba(245,87,108,0.1) 100%); border-radius: 12px; border: 1px solid rgba(240,147,251,0.3);">
-            <h4 style="color: #f093fb; margin-bottom: 15px;">✍️ Text-Optionen</h4>
-            <div class="form-row" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <div class="form-group">
-                    <label>Text-Inhalt</label>
-                    <input type="text" id="customText" placeholder="z.B. 'Born to Run' oder leer für auto-generiert" style="width: 100%; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #fff;">
-                </div>
-                <div class="form-group">
-                    <label>Schrift-Stil</label>
-                    <select id="textStyleCombo">
-                        <option value="bold sans-serif, strong impact">Bold Sans-Serif (kräftig)</option>
-                        <option value="vintage retro script, flowing cursive">Vintage Script (geschwungen)</option>
-                        <option value="grunge distressed, rough edges">Grunge/Distressed (rau)</option>
-                        <option value="3D isometric, dimensional depth">3D Isometric (dreidimensional)</option>
-                        <option value="handwritten brush, organic strokes">Handwritten Brush (handgemalt)</option>
-                        <option value="minimalist thin, elegant clean">Minimalist Thin (elegant)</option>
-                        <option value="geometric constructed, angular lines">Geometric (konstruiert)</option>
-                        <option value="neon glow, cyberpunk futuristic">Neon Glow (futuristisch)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Text-Effekte</label>
-                    <select id="textEffectsCombo">
-                        <option value="">Keine Effekte</option>
-                        <option value="with subtle drop shadow">Schatten</option>
-                        <option value="with outline stroke, bordered letters">Outline/Rahmen</option>
-                        <option value="with inner glow and gradient fill">Inner Glow</option>
-                        <option value="with distressed texture overlay">Texture/Distressed</option>
-                        <option value="with 3D extrusion and depth">3D Extrusion</option>
-                        <option value="with neon glow effect">Neon Glow</option>
-                        <option value="with metallic chrome finish">Metallic/Chrome</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Text-Position</label>
-                    <select id="textPositionCombo">
-                        <option value="centered prominently">Zentriert prominent</option>
-                        <option value="as upper arc banner">Oben gebogen (Arc)</option>
-                        <option value="as lower arc banner">Unten gebogen (Arc)</option>
-                        <option value="as vertical text on left side">Vertikal links</option>
-                        <option value="as vertical text on right side">Vertikal rechts</option>
-                        <option value="scattered across the design">Verteilt/Scattered</option>
-                        <option value="integrated with the main illustration">Integriert im Motiv</option>
-                    </select>
-                </div>
-            </div>
         </div>
         
         <button class="generate-btn" onclick="generatePrompt()">🎯 Prompt Generieren</button>
@@ -1068,56 +997,17 @@
     </div>
     
     <script>
-        let currentPromptType = 'design';
-        
-        function togglePromptType(type) {
-            currentPromptType = type;
-            // Update UI
-            document.querySelectorAll('.prompt-type-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.type === type);
-                if (btn.dataset.type === type) {
-                    btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                    btn.style.borderColor = '#667eea';
-                } else {
-                    btn.style.background = 'rgba(255,255,255,0.05)';
-                    btn.style.borderColor = 'rgba(255,255,255,0.1)';
-                }
-            });
-            // Show/hide text options panel
-            const textPanel = document.getElementById('textOptionsPanel');
-            if (type === 'design') {
-                textPanel.style.display = 'none';
-            } else {
-                textPanel.style.display = 'block';
-                textPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // ===================== KEYWORD SYNC =====================
+        function syncKeywordToListing() {
+            const keyword = document.getElementById('mainKeyword').value;
+            // Try to update listing title if on listing tab
+            const listingTitle = document.getElementById('listingTitle');
+            if (listingTitle && !listingTitle.value) {
+                listingTitle.value = keyword;
             }
         }
         
-        // TEXT GENERATION HELPERS
-        const AUTO_TEXTS = {
-            sport: ['Team Spirit', 'Game On', 'Born To Win', 'Champions', 'Never Give Up', 'Play Hard'],
-            nature: ['Wild & Free', 'Into The Wild', 'Nature Lover', 'Stay Wild', 'Earth Child', 'Forest Soul'],
-            food: ['Foodie Life', 'Tasty', 'Yummy', 'Delicious', 'Hungry', 'Eat Sleep Repeat'],
-            seasonal: ['Merry & Bright', 'Spooky Season', 'Summer Vibes', 'Love Is All', 'Party Time'],
-            dark: ['Dark Soul', 'Fearless', 'Rebel Heart', 'No Rules', 'Rise Above', 'Shadow Walker'],
-            geek: ['Level Up', 'Player 1', 'Geek Life', 'Code All Day', 'Game Over', 'Nerd Alert'],
-            life: ['Family First', 'Best Dad', 'Best Mom', 'Living My Best Life', 'Stay True']
-        };
-        
-        const TEXT_TEMPLATES = {
-            vintage: ['Retro {text}', 'Old School {text}', 'Classic {text}'],
-            modern: ['{text}', '{text} Official', 'Team {text}'],
-            bold: ['{text}!', 'Super {text}', 'Ultimate {text}'],
-            minimal: ['{text}', '{text}.', 'Simply {text}'],
-            fun: ['{text} Mode', '{text} Life', '100% {text}']
-        };
-        
-        function generateAutoText(category, style) {
-            const texts = AUTO_TEXTS[category] || AUTO_TEXTS.life;
-            const base = texts[Math.floor(Math.random() * texts.length)];
-            return base;
-        }
-        
+        // ===================== DESIGN PROMPT =====================
         function generatePrompt() {
             const style = document.getElementById('style').value;
             const subject = document.getElementById('subject').value;
@@ -1126,6 +1016,7 @@
             const background = document.getElementById('background').value;
             const composition = document.getElementById('composition').value;
             const mood = document.getElementById('mood').value;
+            const mainKeyword = document.getElementById('mainKeyword').value;
             
             // Custom colors override
             if (colors === 'custom' && customColors) {
@@ -1139,97 +1030,32 @@
                 if (el && el.checked) extras.push(el.value);
             });
             
-            // Build prompt based on type
-            let prompt = '';
-            let resultTitle = '';
+            // Build prompt
+            let prompt = `Create a ${style} illustration featuring ${subject}`;
             
-            if (currentPromptType === 'design') {
-                // === NUR DESIGN ===
-                resultTitle = '🎨 Design Prompt';
-                prompt = `Create a ${style} illustration featuring ${subject}`;
-                
-                if (colors && colors !== 'custom') {
-                    prompt += `, using ${colors}`;
-                } else if (colors !== 'custom') {
-                    prompt += `, ${colors}`;
-                }
-                
-                prompt += `, ${background}`;
-                prompt += `, ${composition}`;
-                
-                if (extras.length > 0) {
-                    prompt += `, with ${extras.join(', ')}`;
-                }
-                
-                prompt += `, crisp clean edges, professional quality, suitable for print-on-demand merchandise, high resolution, detailed textures`;
-                
-            } else if (currentPromptType === 'text') {
-                // === NUR TEXT ===
-                resultTitle = '✍️ Text/Typography Prompt';
-                
-                const customText = document.getElementById('customText').value.trim();
-                const textStyle = document.getElementById('textStyleCombo').value;
-                const textEffects = document.getElementById('textEffectsCombo').value;
-                const textPosition = document.getElementById('textPositionCombo').value;
-                
-                // Generate text if empty
-                const finalText = customText || generateAutoText(currentCategory, style);
-                
-                prompt = `Create a typography design featuring the text "${finalText}"`;
-                prompt += `, using ${textStyle} font`;
-                prompt += `, ${textPosition}`;
-                prompt += `, ${colors}`;
-                prompt += `, ${mood} mood`;
-                
-                if (textEffects) {
-                    prompt += `, ${textEffects}`;
-                }
-                
-                prompt += `, professional vector typography, t-shirt design, scalable text, clean edges, print-ready quality`;
-                
-            } else {
-                // === DESIGN + TEXT KOMBINIERT ===
-                resultTitle = '🎨✍️ Kombinierter Design + Text Prompt';
-                
-                const customText = document.getElementById('customText').value.trim();
-                const textStyle = document.getElementById('textStyleCombo').value;
-                const textEffects = document.getElementById('textEffectsCombo').value;
-                const textPosition = document.getElementById('textPositionCombo').value;
-                
-                // Generate text if empty
-                const finalText = customText || generateAutoText(currentCategory, style);
-                
-                // DESIGN PART
-                prompt = `Create a ${style} illustration featuring ${subject}`;
-                
-                if (colors && colors !== 'custom') {
-                    prompt += `, using ${colors}`;
-                } else if (colors !== 'custom') {
-                    prompt += `, ${colors}`;
-                }
-                
-                prompt += `, ${background}`;
-                prompt += `, ${composition}`;
-                
-                if (extras.length > 0) {
-                    prompt += `, with ${extras.join(', ')}`;
-                }
-                
-                // TEXT OVERLAY PART
-                prompt += `\n\nWITH INTEGRATED TYPOGRAPHY:\n`;
-                prompt += `Text content: "${finalText}"`;
-                prompt += `\nText style: ${textStyle} font, ${textPosition}`;
-                
-                if (textEffects) {
-                    prompt += `, ${textEffects}`;
-                }
-                
-                prompt += `\n\nCOMBINED: The text should complement the ${subject}, creating a cohesive design where the typography enhances the visual story. Professional print-ready quality, suitable for merchandise.`;
+            if (mainKeyword) {
+                prompt += ` with theme/concept of "${mainKeyword}"`;
             }
+            
+            if (colors && colors !== 'custom') {
+                prompt += `, using ${colors}`;
+            } else if (colors !== 'custom') {
+                prompt += `, ${colors}`;
+            }
+            
+            prompt += `, ${background}`;
+            prompt += `, ${composition}`;
+            prompt += `, ${mood} mood`;
+            
+            if (extras.length > 0) {
+                prompt += `, with ${extras.join(', ')}`;
+            }
+            
+            prompt += `, crisp clean edges, professional quality, suitable for print-on-demand merchandise, high resolution, detailed textures`;
             
             // Display
             document.getElementById('promptText').textContent = prompt;
-            document.querySelector('#result h3').textContent = resultTitle;
+            document.querySelector('#result h3').textContent = '🎨 Design Prompt';
             document.getElementById('result').classList.add('active');
             
             // Legal check
@@ -1244,11 +1070,6 @@
                 { text: 'Prüfe: "Fußball" ist generisch, aber "FIFA World Cup" ist markenrechtlich geschützt', safe: false, warning: true },
                 { text: 'Prüfe: Nationalflaggen-Farben sind OK, aber kombiniert mit offiziellen Wappen → Risiko', safe: false, warning: true }
             ];
-            
-            if (currentPromptType === 'text' || currentPromptType === 'combined') {
-                checks.push({ text: 'Eigenen Text verwendet oder generisch → sicher', safe: true });
-                checks.push({ text: 'Prüfe: Bekannte Zitate/Slogans können urheberrechtlich geschützt sein', safe: false, warning: true });
-            }
             
             checks.forEach(check => {
                 const li = document.createElement('li');
@@ -1630,8 +1451,11 @@
             const keywordsInput = document.getElementById('listingKeywords').value.trim();
             const description = document.getElementById('listingDescription').value.trim();
             
+            // Get main keyword from Design Tab if available
+            const mainKeyword = document.getElementById('mainKeyword')?.value.trim();
+            
             // Generate optimized title
-            let finalTitle = title || `${style.charAt(0).toUpperCase() + style.slice(1)} ${theme} ${product.charAt(0).toUpperCase() + product.slice(1)}`;
+            let finalTitle = title || (mainKeyword ? `${mainKeyword} - ${style.charAt(0).toUpperCase() + style.slice(1)} ${theme} ${product.charAt(0).toUpperCase() + product.slice(1)}` : `${style.charAt(0).toUpperCase() + style.slice(1)} ${theme} ${product.charAt(0).toUpperCase() + product.slice(1)}`);
             if (finalTitle.length > 140) finalTitle = finalTitle.substring(0, 140);
             
             // Generate tags
@@ -1639,12 +1463,16 @@
             if (keywordsInput) {
                 tags = keywordsInput.split(',').map(k => k.trim()).filter(k => k);
             }
+            // Add main keyword as first tag if available
+            if (mainKeyword && !tags.includes(mainKeyword)) {
+                tags.unshift(mainKeyword);
+            }
             // Add default tags based on selections
             const defaultTags = [style, theme, product, audience, 'print on demand', 'graphic tee', 'unique design'];
             tags = [...new Set([...tags, ...defaultTags])].slice(0, 13); // Max 13 tags for Etsy
             
             // Generate description
-            let finalDesc = description || generateAutoDescription(style, theme, product, audience);
+            let finalDesc = description || generateAutoDescription(style, theme, product, audience, mainKeyword);
             
             // Display
             document.getElementById('listingOutputTitle').textContent = finalTitle;
@@ -1659,7 +1487,8 @@
                 { text: 'Keine Markenbegriffe wie "FIFA", "NFL", "Nike" im Titel', safe: !finalTitle.toLowerCase().match(/fifa|nfl|nike|adidas|superbowl|olympics/) },
                 { text: 'Generische Keywords verwendet', safe: tags.length >= 5 },
                 { text: 'Eigene Beschreibung (kein Copy-Paste)', safe: finalDesc.length > 100 },
-                { text: 'Sichere Alternativen: "Global Tournament" statt "World Cup"', safe: !finalTitle.toLowerCase().includes('world cup') }
+                { text: 'Sichere Alternativen: "Global Tournament" statt "World Cup"', safe: !finalTitle.toLowerCase().includes('world cup') },
+                { text: mainKeyword ? `Hauptkeyword "${mainKeyword}" integriert` : 'Kein Hauptkeyword übernommen', safe: !!mainKeyword }
             ];
             checks.forEach(check => {
                 const li = document.createElement('li');
@@ -1671,15 +1500,17 @@
             document.getElementById('listingResult').scrollIntoView({ behavior: 'smooth' });
         }
         
-        function generateAutoDescription(style, theme, product, audience) {
-            return `Elevate your wardrobe with this unique ${style} ${theme} design. 
+        function generateAutoDescription(style, theme, product, audience, mainKeyword) {
+            const keywordIntro = mainKeyword ? `Our "${mainKeyword}" design ` : 'This unique ';
+            return `${keywordIntro}brings together ${style} artistry with ${theme} inspiration.
 
-Perfect for ${audience} who love bold, eye-catching graphics. This ${product} features a high-quality print that stays vibrant wash after wash.
+Perfect for ${audience} who appreciate bold, eye-catching graphics. This ${product} features a high-quality print that stays vibrant wash after wash.
 
 ✨ Features:
 • Premium quality print
 • Soft, comfortable fabric
 • ${style.charAt(0).toUpperCase() + style.slice(1)} design aesthetic
+• ${mainKeyword || theme} themed artwork
 • Perfect for everyday wear or special occasions
 • Great gift idea for ${theme} enthusiasts
 
