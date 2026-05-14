@@ -610,6 +610,19 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>Text-Farben</label>
+                        <select id="textColorsCombo">
+                            <option value="black text on white background, high contrast">Schwarz auf Weiß</option>
+                            <option value="white text on black background, bold contrast">Weiß auf Schwarz</option>
+                            <option value="red and black gradient text">Rot/Schwarz</option>
+                            <option value="blue and white text, cool tones">Blau/Weiß</option>
+                            <option value="gold metallic text on dark">Gold/Dunkel</option>
+                            <option value="neon green on black, cyberpunk">Neon Grün</option>
+                            <option value="pastel rainbow gradient">Pastel Rainbow</option>
+                            <option value="vintage brown and cream">Vintage Braun</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Text-Effekte</label>
                         <select id="textEffectsCombo">
                             <option value="">Keine</option>
@@ -1030,18 +1043,18 @@
                 const textStyle = document.getElementById('textStyleCombo').value;
                 const textEffects = document.getElementById('textEffectsCombo').value;
                 const textPosition = document.getElementById('textPositionCombo').value;
+                const textColors = document.getElementById('textColorsCombo').value;
                 const finalText = customText || generateAutoText();
                 
                 if (currentPromptType === 'text') {
                     // === NUR TEXT ===
                     title = '✍️ Text/Typography Prompt';
-                    prompt = `Create a typography design featuring the text "${finalText}"`;
+                    prompt = `Typography design featuring the text "${finalText}"`;
                     prompt += `, using ${textStyle} font`;
                     prompt += `, ${textPosition}`;
-                    if (colors && colors !== 'custom') prompt += `, using ${colors}`;
-                    prompt += `, ${mood} mood`;
+                    prompt += `, ${textColors}`;
                     if (textEffects) prompt += `, ${textEffects}`;
-                    prompt += `, professional vector typography, t-shirt design, scalable text, clean edges, print-ready quality`;
+                    prompt += `, professional vector typography, t-shirt design, scalable text, clean edges, print-ready quality, 300dpi`;
                     
                     legalChecks.push(
                         { text: 'Eigenen Text verwendet oder generisch → sicher', safe: true },
@@ -1051,17 +1064,18 @@
                 } else {
                     // === DESIGN + TEXT KOMBINIERT ===
                     title = '🎨✍️ Kombinierter Design + Text Prompt';
-                    prompt = `Create a ${style} illustration featuring ${subject}`;
-                    if (mainKeyword) prompt += ` with theme/concept of "${mainKeyword}"`;
+                    prompt = `Combined design: ${style} illustration featuring ${subject}`;
+                    if (mainKeyword) prompt += ` with theme "${mainKeyword}"`;
                     if (colors && colors !== 'custom') prompt += `, using ${colors}`;
                     else if (colors !== 'custom') prompt += `, ${colors}`;
                     prompt += `, ${background}`;
                     prompt += `, ${composition}`;
                     prompt += `, ${mood} mood`;
                     if (extras.length > 0) prompt += `, with ${extras.join(', ')}`;
-                    prompt += `, WITH INTEGRATED TYPOGRAPHY: text "${finalText}" using ${textStyle} font, ${textPosition}`;
+                    prompt += `\n\nINTEGRATED TYPOGRAPHY:\n`;
+                    prompt += `Text: "${finalText}" using ${textStyle} font, ${textPosition}, ${textColors}`;
                     if (textEffects) prompt += `, ${textEffects}`;
-                    prompt += `, text should complement the illustration, cohesive design, professional print-ready quality`;
+                    prompt += `\n\nThe text complements the illustration, creating a cohesive design suitable for print-on-demand merchandise`;
                     
                     legalChecks.push(
                         { text: 'Eigenen Text verwendet oder generisch → sicher', safe: true },
