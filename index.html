@@ -1350,26 +1350,43 @@
         
         // ===================== 3 VARIANTS =====================
         function generate3Variants() {
-            const style = document.getElementById('style').value;
-            const subject = document.getElementById('subject').value;
-            const colors = document.getElementById('colors').value;
-            const mood = document.getElementById('mood').value;
-            
-            if (!subject) { alert('Bitte wähle ein Motiv!'); return; }
-            
-            const variants = [
-                {title: '🎨 Variante 1 — Bold & Eye-Catching', suffix: ', bold high contrast, vibrant colors, strong outlines, eye-catching center design, t-shirt design, print-ready vector, 300dpi'},
-                {title: '💎 Variante 2 — Minimalist & Clean', suffix: ', clean minimalist, simple shapes, limited color palette, elegant white space, modern design, t-shirt design, print-ready vector, 300dpi'},
-                {title: '🔥 Variante 3 — Detail-Rich & Artistic', suffix: ', highly detailed, intricate patterns, artistic texture, rich color depth, professional illustration, t-shirt design, print-ready vector, 300dpi'}
-            ];
-            
-            variants.forEach((v, i) => {
-                const prompt = `Create a ${style} illustration featuring ${subject}, ${colors}${v.suffix}`;
-                document.getElementById(`variant${i+1}Text`).textContent = prompt;
-            });
-            
-            document.getElementById('variantenOutput').classList.add('active');
-            document.getElementById('variantenOutput').scrollIntoView({ behavior: 'smooth' });
+            try {
+                const styleEl = document.getElementById('style');
+                const subjectEl = document.getElementById('subject');
+                const colorsEl = document.getElementById('colors');
+                
+                if (!styleEl || !subjectEl || !colorsEl) {
+                    alert('Fehler: Nicht alle Elemente gefunden');
+                    return;
+                }
+                
+                const style = styleEl.value;
+                const subject = subjectEl.value;
+                const colors = colorsEl.value;
+                
+                if (!subject) { alert('Bitte wähle ein Motiv!'); return; }
+                
+                const variants = [
+                    {title: '🎨 Variante 1 — Bold & Eye-Catching', suffix: ', bold high contrast, vibrant colors, strong outlines, eye-catching center design, t-shirt design, print-ready vector, 300dpi'},
+                    {title: '💎 Variante 2 — Minimalist & Clean', suffix: ', clean minimalist, simple shapes, limited color palette, elegant white space, modern design, t-shirt design, print-ready vector, 300dpi'},
+                    {title: '🔥 Variante 3 — Detail-Rich & Artistic', suffix: ', highly detailed, intricate patterns, artistic texture, rich color depth, professional illustration, t-shirt design, print-ready vector, 300dpi'}
+                ];
+                
+                variants.forEach((v, i) => {
+                    const prompt = `Create a ${style} illustration featuring ${subject}, ${colors}${v.suffix}`;
+                    const el = document.getElementById(`variant${i+1}Text`);
+                    if (el) el.textContent = prompt;
+                });
+                
+                const out = document.getElementById('variantenOutput');
+                if (out) {
+                    out.classList.add('active');
+                    out.scrollIntoView({ behavior: 'smooth' });
+                }
+            } catch (e) {
+                console.error('Fehler in generate3Variants:', e);
+                alert('Fehler: ' + e.message);
+            }
         }
         
         function copyVariant(num) {
