@@ -962,79 +962,116 @@
         // ===================== KEYWORD SYNC =====================
         let currentPromptType = 'design';
         
-        // Mapping: Kategorie → Listing-Thema
-        const CATEGORY_TO_THEME = {
-            sport: 'gaming esports',
-            nature: 'nature outdoors',
-            food: 'sports general',
-            seasonal: 'sports general',
-            dark: 'gaming esports',
-            geek: 'gaming esports',
-            life: 'sports general'
+        // Mapping: Motiv-Value (Schlüsselwort) → Listing-Thema Value
+        const MOTIF_TO_THEME = {
+            'soccer': 'soccer football',
+            'football': 'soccer football',
+            'spielfeld': 'soccer football',
+            'stadion': 'soccer football',
+            'fußball': 'soccer football',
+            'fußballschuh': 'soccer football',
+            'basketball': 'sports general',
+            'racing': 'racing motorsport',
+            'simracing': 'racing motorsport',
+            'gaming': 'gaming esports',
+            'controller': 'gaming esports',
+            'game controller': 'gaming esports',
+            'wolf': 'nature outdoors',
+            'löwe': 'nature outdoors',
+            'drache': 'nature outdoors',
+            'wald': 'nature outdoors',
+            'outdoor': 'nature outdoors',
+            'mond': 'nature outdoors',
+            'sonne': 'nature outdoors',
+            'schmetterling': 'nature outdoors',
+            'pilz': 'nature outdoors',
+            'eule': 'nature outdoors',
+            'fuchs': 'nature outdoors',
+            'delfin': 'nature outdoors',
+            'biene': 'nature outdoors',
+            'kaffee': 'sports general',
+            'bier': 'sports general',
+            'sushi': 'sports general',
+            'pizza': 'sports general',
+            'taco': 'sports general',
+            'burger': 'sports general',
+            'donut': 'sports general',
+            'eis': 'sports general',
+            'wassermelone': 'sports general',
+            'avocado': 'sports general',
+            'christmas': 'sports general',
+            'weihnacht': 'sports general',
+            'rentier': 'sports general',
+            'schneeflocke': 'sports general',
+            'pumpkin': 'sports general',
+            'halloween': 'sports general',
+            'kürbis': 'sports general',
+            'ghost': 'sports general',
+            'skull': 'gaming esports',
+            'heart': 'sports general',
+            'valentin': 'sports general',
+            'cake': 'sports general',
+            'geburtstag': 'sports general',
+            'eagle': 'sports general',
+            'patriotic': 'sports general',
+            'dad': 'sports general',
+            'vatertag': 'sports general',
+            'dog': 'nature outdoors',
+            'hund': 'nature outdoors',
+            'cat': 'nature outdoors',
+            'katze': 'nature outdoors',
+            'robot': 'gaming esports',
+            'spaceship': 'gaming esports',
+            'ufo': 'gaming esports',
+            'alien': 'gaming esports',
+            'pixel': 'gaming esports',
+            'musik': 'music festival',
+            'gitarre': 'music festival',
+            'festival': 'music festival',
+            'reise': 'travel adventure',
+            'abenteuer': 'travel adventure',
+            'travel': 'travel adventure',
+            'adventure': 'travel adventure',
         };
         
-        // Mapping: Motiv-Name (Teilstring) → Listing-Thema
-        const MOTIF_TO_THEME = [
-            {keywords: ['fußball', 'soccer', 'football', 'spielfeld', 'stadion', 'pokal', 'fußballschuh'], theme: 'soccer football'},
-            {keywords: ['basketball'], theme: 'sports general'},
-            {keywords: ['racing', 'simracing', 'racing helm', 'rennen'], theme: 'racing motorsport'},
-            {keywords: ['game controller', 'gaming', 'e-sports', 'gamer', 'pixel', 'controller'], theme: 'gaming esports'},
-            {keywords: ['wolf', 'löwe', 'drache', 'fuchs', 'eule', 'schmetterling', 'pilz', 'biene', 'delfin'], theme: 'nature outdoors'},
-            {keywords: ['wald', 'berg', 'outdoor', 'camping', 'surfen', 'mountainbike'], theme: 'nature outdoors'},
-            {keywords: ['mond', 'sonne', 'blitz', 'kosmos'], theme: 'nature outdoors'},
-            {keywords: ['kaffee', 'bier', 'sushi', 'pizza', 'taco', 'burger', 'donut', 'eis', 'avocado', 'wassermelone'], theme: 'sports general'},
-            {keywords: ['weihnacht', 'rentier', 'schneeflocke', 'halloween', 'valentin', 'geburtstag', 'vatertag', 'patriotic'], theme: 'sports general'},
-            {keywords: ['skull', 'totenkopf', 'dark', 'gothic', 'snake', 'schlange'], theme: 'gaming esports'},
-            {keywords: ['robot', 'spaceship', 'ufo', 'alien', 'pixel', 'retro game'], theme: 'gaming esports'},
-            {keywords: ['dog', 'cat', 'hund', 'katze', 'pet'], theme: 'nature outdoors'},
-            {keywords: ['reise', 'abenteuer', 'travel', 'adventure'], theme: 'travel adventure'},
-            {keywords: ['musik', 'gitarre', 'festival', 'dj', 'rock'], theme: 'music festival'},
-        ];
-        
-        // Mapping: Design-Stil-Name → Listing-Stil
-        const STYLE_TO_LISTING = [
-            {keywords: ['3d', 'metallic', 'hyper-realistic'], style: '3d metallic'},
-            {keywords: ['flat', 'vector', 'minimalist', 'minimal'], style: 'modern minimalist'},
-            {keywords: ['retro', 'vintage', 'distressed', '1970'], style: 'vintage retro'},
-            {keywords: ['streetwear', 'graffiti', 'urban', 'grunge'], style: 'grunge streetwear'},
-            {keywords: ['watercolor', 'watercolour', 'painting', 'brush'], style: 'watercolor artistic'},
-            {keywords: ['geometric', 'abstract', 'low poly', 'angular'], style: 'geometric abstract'},
-            {keywords: ['line art', 'outline', 'continuous line'], style: 'modern minimalist'},
-            {keywords: ['neon', 'cyberpunk', 'glowing', 'futuristic'], style: 'grunge streetwear'},
-            {keywords: ['sketch', 'hand-drawn', 'pencil', 'raw'], style: 'vintage retro'},
-            {keywords: ['pop art', 'bold colors', 'comic', 'ben-day'], style: 'modern minimalist'},
-            {keywords: ['anime', 'manga', 'cel shading'], style: 'grunge streetwear'},
-            {keywords: ['pixel', '8-bit', 'retro game'], style: 'grunge streetwear'},
-            {keywords: ['art deco', 'gatsby', 'gold pattern'], style: 'vintage retro'},
-            {keywords: ['steampunk', 'brass', 'copper', 'victorian'], style: 'vintage retro'},
-            {keywords: ['botanical', 'floral', 'flowers', 'illustration'], style: 'watercolor artistic'},
-            {keywords: ['gothic', 'medieval', 'ornate', 'cathedral'], style: 'vintage retro'},
-            {keywords: ['memphis', '1980s', 'squiggles'], style: 'geometric abstract'},
-            {keywords: ['paper cutout', 'layered', 'origami'], style: '3d metallic'},
-            {keywords: ['chalkboard', 'chalk', 'lettering'], style: 'vintage retro'},
-            {keywords: ['double exposure', 'silhouette', 'dreamy'], style: 'watercolor artistic'},
-        ];
-        
-        function findThemeFromMotif(subjectText) {
-            const lower = subjectText.toLowerCase();
-            for (const mapping of MOTIF_TO_THEME) {
-                if (mapping.keywords.some(kw => lower.includes(kw))) {
-                    return mapping.theme;
-                }
-            }
-            // Fallback: Kategorie-basiert
-            return CATEGORY_TO_THEME[currentCategory] || 'sports general';
-        }
-        
-        function findStyleFromDesign(styleText) {
-            const lower = styleText.toLowerCase();
-            for (const mapping of STYLE_TO_LISTING) {
-                if (mapping.keywords.some(kw => lower.includes(kw))) {
-                    return mapping.style;
-                }
-            }
-            return 'vintage retro'; // Default
-        }
+        // Mapping: Design-Stil-Name → Listing-Stil Value
+        const STYLE_TO_LISTING = {
+            '3d metallic': '3d metallic',
+            '3d': '3d metallic',
+            'flat vector': 'modern minimalist',
+            'vector': 'modern minimalist',
+            'minimalist': 'modern minimalist',
+            'retro vintage': 'vintage retro',
+            'retro': 'vintage retro',
+            'vintage': 'vintage retro',
+            'streetwear': 'grunge streetwear',
+            'graffiti': 'grunge streetwear',
+            'grunge': 'grunge streetwear',
+            'watercolor': 'watercolor artistic',
+            'watercolor art': 'watercolor artistic',
+            'geometric': 'geometric abstract',
+            'abstract': 'geometric abstract',
+            'line art': 'modern minimalist',
+            'neon': 'grunge streetwear',
+            'cyberpunk': 'grunge streetwear',
+            'sketch': 'vintage retro',
+            'hand sketch': 'vintage retro',
+            'pop art': 'modern minimalist',
+            'anime': 'grunge streetwear',
+            'manga': 'grunge streetwear',
+            'pixel art': 'grunge streetwear',
+            '8-bit': 'grunge streetwear',
+            'art deco': 'vintage retro',
+            'steampunk': 'vintage retro',
+            'botanical': 'watercolor artistic',
+            'floral': 'watercolor artistic',
+            'gothic': 'vintage retro',
+            'medieval': 'vintage retro',
+            'memphis': 'geometric abstract',
+            'paper cutout': '3d metallic',
+            'chalkboard': 'vintage retro',
+            'double exposure': 'watercolor artistic',
+        };
         
         function syncDesignToListing() {
             const subjectEl = document.getElementById('subject');
@@ -1048,30 +1085,48 @@
             
             const keyword = mainKeywordEl ? mainKeywordEl.value.trim() : '';
             
-            // 1. THEMA: Aus Motiv-Namen ableiten
+            // 1. THEMA: Aus Motiv-Value ableiten
             if (subjectEl && listingTheme) {
-                const subjectName = subjectEl.options[subjectEl.selectedIndex]?.text || '';
-                const themeValue = findThemeFromMotif(subjectName);
+                const subjectValue = subjectEl.value.toLowerCase();
+                let themeValue = 'sports general'; // Default
+                
+                // Suche nach Keyword im Motiv-Value
+                for (const [motifKeyword, theme] of Object.entries(MOTIF_TO_THEME)) {
+                    if (subjectValue.includes(motifKeyword)) {
+                        themeValue = theme;
+                        break;
+                    }
+                }
+                
                 listingTheme.value = themeValue;
-                console.log('Thema:', subjectName, '→', themeValue);
+                console.log('Thema Sync:', subjectValue, '→', themeValue);
             }
             
-            // 2. STIL: Aus Design-Stil ableiten
+            // 2. STIL: Aus Design-Stil-Text ableiten
             if (styleEl && listingStyle) {
                 const styleName = styleEl.options[styleEl.selectedIndex]?.text || '';
-                const styleValue = findStyleFromDesign(styleName);
+                const styleNameLower = styleName.toLowerCase();
+                let styleValue = 'vintage retro'; // Default
+                
+                // Suche nach Keyword im Stil-Namen
+                for (const [styleKeyword, listingStyleValue] of Object.entries(STYLE_TO_LISTING)) {
+                    if (styleNameLower.includes(styleKeyword)) {
+                        styleValue = listingStyleValue;
+                        break;
+                    }
+                }
+                
                 listingStyle.value = styleValue;
-                console.log('Stil:', styleName, '→', styleValue);
+                console.log('Stil Sync:', styleName, '→', styleValue);
             }
             
-            // 3. TITEL: Hauptkeyword + Thema
+            // 3. TITEL: Hauptkeyword
             if (keyword && listingTitle) {
-                const subjectName = subjectEl ? subjectEl.options[subjectEl.selectedIndex]?.text.split('(')[0].trim() : '';
                 listingTitle.value = keyword;
-                console.log('Titel:', keyword);
+                console.log('Titel Sync:', keyword);
             }
             
-            // 4. KEYWORDS: Amazon-konform
+            // 4. KEYWORDS: Amazon-konform (nur wenn leer)
             if (keyword && listingKeywords && !listingKeywords.value) {
                 const base = keyword.toLowerCase();
                 const kws = [
