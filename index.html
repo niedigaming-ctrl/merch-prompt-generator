@@ -521,7 +521,7 @@
         <div class="form-grid">
             <div class="form-group">
                 <label>🎨 Design-Stil</label>
-                <select id="style">
+                <select id="style" onchange="syncKeywordToListing()">
                     <option value="3D rendered, hyper-realistic, glossy metallic finish">3D Metallic</option>
                     <option value="flat vector illustration, clean lines, minimalist">Flat Vector</option>
                     <option value="retro vintage style, distressed texture, 1970s aesthetic">Retro Vintage</option>
@@ -680,7 +680,7 @@
                     <p>Generische Motive ohne hohes Copyright-Risiko</p>
                 </div>
                 
-                <select id="subject" onchange="updateShirtPreview()"></select>
+                <select id="subject" onchange="updateShirtPreview(); syncKeywordToListing();"></select>
                 
                 <div class="shirt-preview">
                     <div class="shirt-badge" id="shirtBadge">👕</div>
