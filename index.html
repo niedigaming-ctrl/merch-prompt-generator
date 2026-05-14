@@ -86,6 +86,126 @@
         .checkbox-item:hover { background: rgba(255,255,255,0.1); }
         .checkbox-item input[type="checkbox"] { cursor: pointer; }
         
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            border-radius: 8px 8px 0 0;
+            color: #888;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* LISTING GENERATOR */
+        .char-counter {
+            font-size: 12px;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        .char-counter.ok { color: #4caf50; }
+        .char-counter.warning { color: #ffc107; }
+        .char-counter.error { color: #f44336; }
+        .char-counter.min-ok { color: #4caf50; }
+        
+        .listing-output {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #fff;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-left: 4px solid #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .checker-section {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        .checker-section h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .checker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .checker-field {
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .checker-field label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        .checker-field textarea {
+            width: 100%;
+            min-height: 60px;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            font-size: 12px;
+            resize: vertical;
+        }
+        
+        .file-upload {
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .file-upload:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+        .file-upload input {
+            display: none;
+        }
+        .preview-img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
         .generate-btn {
             width: 100%;
             padding: 18px;
@@ -195,6 +315,15 @@
     <div class="container">
         <h1>🎨 Merch Prompt Generator</h1>
         <p class="subtitle">Urheberrechtssichere Prompts für Print-on-Demand Designs</p>
+        
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('design')" id="tab-design">🎨 Design Prompt</button>
+            <button class="tab-btn" onclick="switchTab('listing')" id="tab-listing">📝 Listing Generator</button>
+        </div>
+        
+        <!-- TAB: DESIGN PROMPT -->
+        <div id="tab-content-design" class="tab-content active">
         
         <div class="warning-box">
             <h3>⚠️ Wichtige rechtliche Hinweise</h3>
@@ -438,6 +567,123 @@
                 </ul>
             </div>
         </div>
+        
+        </div><!-- Ende tab-content-design -->
+        
+        <!-- TAB: LISTING GENERATOR -->
+        <div id="tab-content-listing" class="tab-content">
+            
+            <div class="warning-box">
+                <h3>⚠️ Listing-Rechtliche Hinweise</h3>
+                <ul>
+                    <li class="safe">✅ Eigene Beschreibungen schreiben — keine Copy-Paste von anderen</li>
+                    <li class="safe">✅ Generische Keywords verwenden ohne Markennamen</li>
+                    <li class="unsafe">❌ "FIFA World Cup", "Super Bowl", "Olympics" — geschützte Begriffe</li>
+                    <li class="warning">⚠️ "WM 2026", "Championship", "Global Tournament" sind sicherer</li>
+                </ul>
+            </div>
+            
+            <div class="form-grid">
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>📝 Produkttitel</label>
+                    <input type="text" id="listingTitle" placeholder="Vintage Soccer Graphic T-Shirt" maxlength="140">
+                    <div class="char-counter" id="titleCounter">0 / 140 Zeichen</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>🎨 Design-Stil</label>
+                    <select id="listingStyle">
+                        <option value="vintage retro">Vintage / Retro</option>
+                        <option value="modern minimalist">Modern / Minimalist</option>
+                        <option value="grunge streetwear">Grunge / Streetwear</option>
+                        <option value="geometric abstract">Geometrisch / Abstrakt</option>
+                        <option value="watercolor artistic">Watercolor / Künstlerisch</option>
+                        <option value="3d metallic">3D / Metallic</option>
+                        <option value="sporty athletic">Sporty / Athletic</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>⚽ Thema</label>
+                    <select id="listingTheme">
+                        <option value="soccer football">Soccer / Football</option>
+                        <option value="sports general">Sports (allgemein)</option>
+                        <option value="gaming esports">Gaming / E-Sports</option>
+                        <option value="racing motorsport">Racing / Motorsport</option>
+                        <option value="nature outdoors">Natur / Outdoor</option>
+                        <option value="animal wildlife">Tiere / Wildlife</option>
+                        <option value="music festival">Musik / Festival</option>
+                        <option value="travel adventure">Reisen / Abenteuer</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>🎯 Haupt-Keywords (kommagetrennt)</label>
+                    <input type="text" id="listingKeywords" placeholder="soccer shirt, vintage football tee, retro sports apparel..." maxlength="500">
+                    <div class="char-counter" id="keywordsCounter">0 / 500 Zeichen</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>👕 Produkt-Typ</label>
+                    <select id="listingProduct">
+                        <option value="t-shirt">T-Shirt (Unisex)</option>
+                        <option value="t-shirt women">T-Shirt (Damen)</option>
+                        <option value="hoodie">Hoodie / Sweatshirt</option>
+                        <option value="tank top">Tank Top / Muscleshirt</option>
+                        <option value="longsleeve">Longsleeve</option>
+                        <option value="kids">Kinder / Youth</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>📏 Zielgruppe</label>
+                    <select id="listingAudience">
+                        <option value="men">Männer</option>
+                        <option value="women">Frauen</option>
+                        <option value="unisex">Unisex</option>
+                        <option value="kids">Kinder</option>
+                        <option value="fans">Sport-Fans</option>
+                        <option value="gamers">Gamer</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>📝 Produktbeschreibung</label>
+                    <textarea id="listingDescription" rows="4" maxlength="5000" placeholder="Beschreibe das Design..."></textarea>
+                    <div class="char-counter" id="descCounter">0 / 5000 Zeichen</div>
+                </div>
+            </div>
+            
+            <button class="generate-btn" onclick="generateListing()">📝 Listing Generieren</button>
+            
+            <div class="result" id="listingResult">
+                <h3>✅ Dein fertiges Listing</h3>
+                
+                <div class="checker-section">
+                    <h4>📝 Titel</h4>
+                    <div class="listing-output" id="listingOutputTitle"></div>
+                    <button class="copy-btn" onclick="copyListingTitle()">📋 Titel kopieren</button>
+                </div>
+                
+                <div class="checker-section">
+                    <h4>🏷️ Tags</h4>
+                    <div class="listing-output" id="listingOutputTags"></div>
+                    <button class="copy-btn" onclick="copyListingTags()">📋 Tags kopieren</button>
+                </div>
+                
+                <div class="checker-section">
+                    <h4>📝 Beschreibung</h4>
+                    <div class="listing-output" id="listingOutputDesc"></div>
+                    <button class="copy-btn" onclick="copyListingDesc()">📋 Beschreibung kopieren</button>
+                </div>
+                
+                <div class="checker-section">
+                    <h4>⚖️ Rechtliche Prüfung</h4>
+                    <ul id="listingLegalList"></ul>
+                </div>
+            </div>
+            
+        </div><!-- Ende tab-content-listing -->
         
         <!-- TEXT/TYPOGRAPHY GENERATOR SECTION -->
         <hr style="border-color: rgba(255,255,255,0.1); margin: 40px 0;">
@@ -738,6 +984,130 @@
             navigator.clipboard.writeText(recraftText).then(() => {
                 alert('✅ Recraft-optimierter Text-Prompt kopiert!');
             });
+        }
+    </script>
+    <script>
+        // ===================== TAB SWITCHING =====================
+        function switchTab(tab) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById('tab-content-' + tab).classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+        }
+        
+        // ===================== LISTING GENERATOR =====================
+        
+        // Char counters
+        document.getElementById('listingTitle')?.addEventListener('input', function() {
+            const len = this.value.length;
+            const counter = document.getElementById('titleCounter');
+            counter.textContent = len + ' / 140 Zeichen';
+            counter.className = 'char-counter ' + (len > 140 ? 'error' : len >= 40 ? 'ok' : 'warning');
+        });
+        
+        document.getElementById('listingDescription')?.addEventListener('input', function() {
+            const len = this.value.length;
+            const counter = document.getElementById('descCounter');
+            counter.textContent = len + ' / 5000 Zeichen';
+            counter.className = 'char-counter ' + (len > 5000 ? 'error' : len >= 200 ? 'ok' : 'warning');
+        });
+        
+        document.getElementById('listingKeywords')?.addEventListener('input', function() {
+            const len = this.value.length;
+            const counter = document.getElementById('keywordsCounter');
+            counter.textContent = len + ' / 500 Zeichen';
+            counter.className = 'char-counter ' + (len > 500 ? 'error' : len >= 100 ? 'ok' : 'warning');
+        });
+        
+        function generateListing() {
+            const title = document.getElementById('listingTitle').value.trim();
+            const style = document.getElementById('listingStyle').value;
+            const theme = document.getElementById('listingTheme').value;
+            const product = document.getElementById('listingProduct').value;
+            const audience = document.getElementById('listingAudience').value;
+            const keywordsInput = document.getElementById('listingKeywords').value.trim();
+            const description = document.getElementById('listingDescription').value.trim();
+            
+            // Generate optimized title
+            let finalTitle = title || `${style.charAt(0).toUpperCase() + style.slice(1)} ${theme} ${product.charAt(0).toUpperCase() + product.slice(1)}`;
+            if (finalTitle.length > 140) finalTitle = finalTitle.substring(0, 140);
+            
+            // Generate tags
+            let tags = [];
+            if (keywordsInput) {
+                tags = keywordsInput.split(',').map(k => k.trim()).filter(k => k);
+            }
+            // Add default tags based on selections
+            const defaultTags = [style, theme, product, audience, 'print on demand', 'graphic tee', 'unique design'];
+            tags = [...new Set([...tags, ...defaultTags])].slice(0, 13); // Max 13 tags for Etsy
+            
+            // Generate description
+            let finalDesc = description || generateAutoDescription(style, theme, product, audience);
+            
+            // Display
+            document.getElementById('listingOutputTitle').textContent = finalTitle;
+            document.getElementById('listingOutputTags').textContent = tags.join(', ');
+            document.getElementById('listingOutputDesc').textContent = finalDesc;
+            document.getElementById('listingResult').classList.add('active');
+            
+            // Legal check
+            const legalList = document.getElementById('listingLegalList');
+            legalList.innerHTML = '';
+            const checks = [
+                { text: 'Keine Markenbegriffe wie "FIFA", "NFL", "Nike" im Titel', safe: !finalTitle.toLowerCase().match(/fifa|nfl|nike|adidas|superbowl|olympics/) },
+                { text: 'Generische Keywords verwendet', safe: tags.length >= 5 },
+                { text: 'Eigene Beschreibung (kein Copy-Paste)', safe: finalDesc.length > 100 },
+                { text: 'Sichere Alternativen: "Global Tournament" statt "World Cup"', safe: !finalTitle.toLowerCase().includes('world cup') }
+            ];
+            checks.forEach(check => {
+                const li = document.createElement('li');
+                li.innerHTML = (check.safe ? '✅ ' : '⚠️ ') + check.text;
+                li.style.color = check.safe ? '#4caf50' : '#ffc107';
+                legalList.appendChild(li);
+            });
+            
+            document.getElementById('listingResult').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function generateAutoDescription(style, theme, product, audience) {
+            return `Elevate your wardrobe with this unique ${style} ${theme} design. 
+
+Perfect for ${audience} who love bold, eye-catching graphics. This ${product} features a high-quality print that stays vibrant wash after wash.
+
+✨ Features:
+• Premium quality print
+• Soft, comfortable fabric
+• ${style.charAt(0).toUpperCase() + style.slice(1)} design aesthetic
+• Perfect for everyday wear or special occasions
+• Great gift idea for ${theme} enthusiasts
+
+🎨 Design:
+Our artwork is created with attention to detail, featuring clean lines and vibrant colors that pop. Each piece is printed on demand, ensuring minimal environmental impact.
+
+📦 Shipping:
+Printed and shipped from our trusted partners. Please allow 3-7 business days for processing.
+
+⚠️ Legal:
+This is an original design. All artwork is created independently and does not infringe on any trademarks or copyrights.`;
+        }
+        
+        function copyListingTitle() {
+            const text = document.getElementById('listingOutputTitle').textContent;
+            navigator.clipboard.writeText(text).then(() => alert('✅ Titel kopiert!'));
+        }
+        
+        function copyListingTags() {
+            const text = document.getElementById('listingOutputTags').textContent;
+            navigator.clipboard.writeText(text).then(() => alert('✅ Tags kopiert!'));
+        }
+        
+        function copyListingDesc() {
+            const text = document.getElementById('listingOutputDesc').textContent;
+            navigator.clipboard.writeText(text).then(() => alert('✅ Beschreibung kopiert!'));
         }
     </script>
 </body>
