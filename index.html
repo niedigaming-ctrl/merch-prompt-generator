@@ -993,124 +993,132 @@
         
         // ===================== DESIGN PROMPT =====================
         function generatePrompt() {
-            const style = document.getElementById('style').value;
-            const subject = document.getElementById('subject').value;
-            let colors = document.getElementById('colors').value;
-            const customColors = document.getElementById('customColors').value;
-            const background = document.getElementById('background').value;
-            const composition = document.getElementById('composition').value;
-            const mood = document.getElementById('mood').value;
-            const mainKeyword = document.getElementById('mainKeyword').value;
-            
-            if (colors === 'custom' && customColors) {
-                colors = `custom color palette: ${customColors}`;
-            }
-            
-            // Collect extra elements
-            const extras = [];
-            ['splatter', 'stars', 'speed', 'particles', 'halftone', 'glitch', 'geometric', 'texture'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el && el.checked) extras.push(el.value);
-            });
-            
-            let prompt = '';
-            let title = '';
-            let legalChecks = [
-                { text: 'Keine Markenlogos oder Wappen enthalten', safe: true },
-                { text: 'Generische Beschreibung statt geschützter Begriffe', safe: true },
-                { text: 'Stilisiert/artistic statt realistischer Markendarstellung', safe: true },
-                { text: 'Eigene kreative Interpretation — keine Kopie', safe: true },
-                { text: 'Prüfe: "Fußball" ist generisch, aber "FIFA World Cup" ist markenrechtlich geschützt', safe: false, warning: true },
-                { text: 'Prüfe: Nationalflaggen-Farben sind OK, aber kombiniert mit offiziellen Wappen → Risiko', safe: false, warning: true }
-            ];
-            
-            if (currentPromptType === 'design') {
-                // === NUR DESIGN ===
-                title = '🎨 Design Prompt';
-                prompt = `Create a ${style} illustration featuring ${subject}`;
-                if (mainKeyword) prompt += ` with theme/concept of "${mainKeyword}"`;
-                if (colors && colors !== 'custom') prompt += `, using ${colors}`;
-                else if (colors !== 'custom') prompt += `, ${colors}`;
-                prompt += `, ${background}`;
-                prompt += `, ${composition}`;
-                prompt += `, ${mood} mood`;
-                if (extras.length > 0) prompt += `, with ${extras.join(', ')}`;
-                prompt += `, crisp clean edges, professional quality, suitable for print-on-demand merchandise, high resolution, detailed textures`;
+            try {
+                const style = document.getElementById('style').value;
+                const subject = document.getElementById('subject').value;
+                let colors = document.getElementById('colors').value;
+                const customColors = document.getElementById('customColors').value;
+                const background = document.getElementById('background').value;
+                const composition = document.getElementById('composition').value;
+                const mood = document.getElementById('mood').value;
+                const mainKeyword = document.getElementById('mainKeyword').value;
                 
-            } else {
-                // === TEXT oder COMBINED ===
-                const customTextEl = document.getElementById('customText');
-                const textStyleEl = document.getElementById('textStyleCombo');
-                const textEffectsEl = document.getElementById('textEffectsCombo');
-                const textPositionEl = document.getElementById('textPositionCombo');
-                const textColorsEl = document.getElementById('textColorsCombo');
+                if (colors === 'custom' && customColors) {
+                    colors = `custom color palette: ${customColors}`;
+                }
                 
-                const customText = customTextEl ? customTextEl.value.trim() : '';
-                const textStyle = textStyleEl ? textStyleEl.value : 'bold sans-serif';
-                const textEffects = textEffectsEl ? textEffectsEl.value : '';
-                const textPosition = textPositionEl ? textPositionEl.value : 'centered prominently';
-                const textColors = textColorsEl ? textColorsEl.value : 'black text on white background';
-                const finalText = customText || generateAutoText();
+                // Collect extra elements
+                const extras = [];
+                ['splatter', 'stars', 'speed', 'particles', 'halftone', 'glitch', 'geometric', 'texture'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && el.checked) extras.push(el.value);
+                });
                 
-                if (currentPromptType === 'text') {
-                    // === NUR TEXT ===
-                    title = '✍️ Text/Typography Prompt';
-                    prompt = `Typography design featuring the text "${finalText}"`;
-                    prompt += `, using ${textStyle} font`;
-                    prompt += `, ${textPosition}`;
-                    prompt += `, ${textColors}`;
-                    if (textEffects) prompt += `, ${textEffects}`;
-                    prompt += `, professional vector typography, t-shirt design, scalable text, clean edges, print-ready quality, 300dpi`;
-                    
-                    legalChecks.push(
-                        { text: 'Eigenen Text verwendet oder generisch → sicher', safe: true },
-                        { text: 'Prüfe: Bekannte Zitate/Slogans können urheberrechtlich geschützt sein', safe: false, warning: true }
-                    );
-                    
-                } else {
-                    // === DESIGN + TEXT KOMBINIERT ===
-                    title = '🎨✍️ Kombinierter Design + Text Prompt';
-                    prompt = `Combined design: ${style} illustration featuring ${subject}`;
-                    if (mainKeyword) prompt += ` with theme "${mainKeyword}"`;
+                let prompt = '';
+                let title = '';
+                let legalChecks = [
+                    { text: 'Keine Markenlogos oder Wappen enthalten', safe: true },
+                    { text: 'Generische Beschreibung statt geschützter Begriffe', safe: true },
+                    { text: 'Stilisiert/artistic statt realistischer Markendarstellung', safe: true },
+                    { text: 'Eigene kreative Interpretation — keine Kopie', safe: true },
+                    { text: 'Prüfe: "Fußball" ist generisch, aber "FIFA World Cup" ist markenrechtlich geschützt', safe: false, warning: true },
+                    { text: 'Prüfe: Nationalflaggen-Farben sind OK, aber kombiniert mit offiziellen Wappen → Risiko', safe: false, warning: true }
+                ];
+                
+                if (currentPromptType === 'design') {
+                    // === NUR DESIGN ===
+                    title = '🎨 Design Prompt';
+                    prompt = `Create a ${style} illustration featuring ${subject}`;
+                    if (mainKeyword) prompt += ` with theme/concept of "${mainKeyword}"`;
                     if (colors && colors !== 'custom') prompt += `, using ${colors}`;
                     else if (colors !== 'custom') prompt += `, ${colors}`;
                     prompt += `, ${background}`;
                     prompt += `, ${composition}`;
                     prompt += `, ${mood} mood`;
                     if (extras.length > 0) prompt += `, with ${extras.join(', ')}`;
-                    prompt += `\n\nINTEGRATED TYPOGRAPHY:\n`;
-                    prompt += `Text: "${finalText}" using ${textStyle} font, ${textPosition}, ${textColors}`;
-                    if (textEffects) prompt += `, ${textEffects}`;
-                    prompt += `\n\nThe text complements the illustration, creating a cohesive design suitable for print-on-demand merchandise`;
+                    prompt += `, crisp clean edges, professional quality, suitable for print-on-demand merchandise, high resolution, detailed textures`;
                     
-                    legalChecks.push(
-                        { text: 'Eigenen Text verwendet oder generisch → sicher', safe: true },
-                        { text: 'Prüfe: Bekannte Zitate/Slogans können urheberrechtlich geschützt sein', safe: false, warning: true }
-                    );
-                }
-            }
-            
-            // Display
-            document.getElementById('promptText').textContent = prompt;
-            document.querySelector('#result h3').textContent = title;
-            document.getElementById('result').classList.add('active');
-            
-            // Legal check
-            const legalList = document.getElementById('legalList');
-            legalList.innerHTML = '';
-            legalChecks.forEach(check => {
-                const li = document.createElement('li');
-                if (check.warning) {
-                    li.innerHTML = `⚠️ ${check.text}`;
-                    li.style.color = '#ffc107';
                 } else {
-                    li.innerHTML = `✅ ${check.text}`;
-                    li.style.color = '#4caf50';
+                    // === TEXT oder COMBINED ===
+                    // SAFE element access with defaults
+                    const customTextEl = document.getElementById('customText');
+                    const textStyleEl = document.getElementById('textStyleCombo');
+                    const textEffectsEl = document.getElementById('textEffectsCombo');
+                    const textPositionEl = document.getElementById('textPositionCombo');
+                    const textColorsEl = document.getElementById('textColorsCombo');
+                    
+                    const customText = customTextEl ? customTextEl.value.trim() : '';
+                    const textStyle = textStyleEl ? textStyleEl.value : 'bold sans-serif';
+                    const textEffects = textEffectsEl ? textEffectsEl.value : '';
+                    const textPosition = textPositionEl ? textPositionEl.value : 'centered prominently';
+                    const textColors = textColorsEl ? textColorsEl.value : 'black text on white background';
+                    const finalText = customText || generateAutoText();
+                    
+                    if (currentPromptType === 'text') {
+                        // === NUR TEXT ===
+                        title = '✍️ Text/Typography Prompt';
+                        prompt = `Typography design featuring the text "${finalText}"`;
+                        prompt += `, using ${textStyle} font`;
+                        prompt += `, ${textPosition}`;
+                        prompt += `, ${textColors}`;
+                        if (textEffects) prompt += `, ${textEffects}`;
+                        prompt += `, professional vector typography, t-shirt design, scalable text, clean edges, print-ready quality, 300dpi`;
+                        
+                        legalChecks.push(
+                            { text: 'Eigenen Text verwendet oder generisch → sicher', safe: true },
+                            { text: 'Prüfe: Bekannte Zitate/Slogans können urheberrechtlich geschützt sein', safe: false, warning: true }
+                        );
+                        
+                    } else {
+                        // === DESIGN + TEXT KOMBINIERT ===
+                        title = '🎨✍️ Kombinierter Design + Text Prompt';
+                        prompt = `Combined design: ${style} illustration featuring ${subject}`;
+                        if (mainKeyword) prompt += ` with theme "${mainKeyword}"`;
+                        if (colors && colors !== 'custom') prompt += `, using ${colors}`;
+                        else if (colors !== 'custom') prompt += `, ${colors}`;
+                        prompt += `, ${background}`;
+                        prompt += `, ${composition}`;
+                        prompt += `, ${mood} mood`;
+                        if (extras.length > 0) prompt += `, with ${extras.join(', ')}`;
+                        prompt += `\n\nINTEGRATED TYPOGRAPHY:\n`;
+                        prompt += `Text: "${finalText}" using ${textStyle} font, ${textPosition}, ${textColors}`;
+                        if (textEffects) prompt += `, ${textEffects}`;
+                        prompt += `\n\nThe text complements the illustration, creating a cohesive design suitable for print-on-demand merchandise`;
+                        
+                        legalChecks.push(
+                            { text: 'Eigenen Text verwendet oder generisch → sicher', safe: true },
+                            { text: 'Prüfe: Bekannte Zitate/Slogans können urheberrechtlich geschützt sein', safe: false, warning: true }
+                        );
+                    }
                 }
-                legalList.appendChild(li);
-            });
-            
-            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+                
+                // Display
+                document.getElementById('promptText').textContent = prompt;
+                document.querySelector('#result h3').textContent = title;
+                document.getElementById('result').classList.add('active');
+                
+                // Legal check
+                const legalList = document.getElementById('legalList');
+                legalList.innerHTML = '';
+                legalChecks.forEach(check => {
+                    const li = document.createElement('li');
+                    if (check.warning) {
+                        li.innerHTML = `⚠️ ${check.text}`;
+                        li.style.color = '#ffc107';
+                    } else {
+                        li.innerHTML = `✅ ${check.text}`;
+                        li.style.color = '#4caf50';
+                    }
+                    legalList.appendChild(li);
+                });
+                
+                document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (e) {
+                console.error('Fehler in generatePrompt:', e);
+                document.getElementById('promptText').textContent = 'Fehler: ' + e.message;
+                document.getElementById('result').classList.add('active');
+            }
         }
         
         function copyPrompt() {
