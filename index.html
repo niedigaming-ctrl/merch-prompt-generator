@@ -994,13 +994,27 @@
         // ===================== DESIGN PROMPT =====================
         function generatePrompt() {
             try {
-                const style = document.getElementById('style').value;
-                const subject = document.getElementById('subject').value;
-                let colors = document.getElementById('colors').value;
-                const customColors = document.getElementById('customColors').value;
-                const background = document.getElementById('background').value;
-                const composition = document.getElementById('composition').value;
-                const mainKeyword = document.getElementById('mainKeyword').value;
+                // Alle Elemente mit Null-Checks
+                const styleEl = document.getElementById('style');
+                const subjectEl = document.getElementById('subject');
+                const colorsEl = document.getElementById('colors');
+                const customColorsEl = document.getElementById('customColors');
+                const backgroundEl = document.getElementById('background');
+                const compositionEl = document.getElementById('composition');
+                const mainKeywordEl = document.getElementById('mainKeyword');
+                
+                // Prüfe ob kritische Elemente existieren
+                if (!styleEl) throw new Error('Element "style" nicht gefunden');
+                if (!subjectEl) throw new Error('Element "subject" nicht gefunden');
+                if (!colorsEl) throw new Error('Element "colors" nicht gefunden');
+                
+                const style = styleEl.value;
+                const subject = subjectEl.value;
+                let colors = colorsEl.value;
+                const customColors = customColorsEl ? customColorsEl.value : '';
+                const background = backgroundEl ? backgroundEl.value : 'solid pure black background';
+                const composition = compositionEl ? compositionEl.value : 'centered composition';
+                const mainKeyword = mainKeywordEl ? mainKeywordEl.value : '';
                 
                 if (colors === 'custom' && customColors) {
                     colors = `custom color palette: ${customColors}`;
