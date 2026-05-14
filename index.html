@@ -1074,9 +1074,9 @@
                     </div>
 
                     <div class="form-group" style="grid-column: 1 / -1;">
-                        <label>🏷️ Brand <span style="color: #4ade80;">(min. 35 Zeichen)</span></label>
+                        <label>🏷️ Brand <span style="color: #f44336;">(max. 35 Zeichen)</span></label>
                         <textarea id="counterBrand" rows="2" oninput="updateCounters()" placeholder="Hier Brand-Text einfügen..."></textarea>
-                        <div class="char-counter" id="counterBrandDisplay">0 / 500 Zeichen (min. 35)</div>
+                        <div class="char-counter" id="counterBrandDisplay">0 / 35 Zeichen</div>
                     </div>
                 </div>
             </div>
@@ -1552,7 +1552,7 @@
                     'Bullet 1: Maximal 256 Zeichen, zweitwichtigstes Keyword vorne',
                     'Bullet 2: Maximal 256 Zeichen, drittes Keyword vorne, erwähne dass es perfekt für Enthusiasten ist',
                     'Section 3 / Beschreibung: Mindestens 35 Zeichen, beschreibe das Design stilvoll',
-                    'Brand: Mindestens 35 Zeichen, ohne Wiederholung von Keywords aus anderen Feldern',
+                    'Brand: Maximal 35 Zeichen, ohne Wiederholung von Keywords aus anderen Feldern',
                     'Keyword-Strategie: Jedes Feld nutzt ANDERE Keywords - keine Wiederholungen!',
                     'Wichtig: Alle Begriffe müssen auf Trademark-Konflikte geprüft werden'
                 ],
@@ -1568,7 +1568,7 @@
                     'Bullet 1: Maximum 256 characters, second most important keyword first',
                     'Bullet 2: Maximum 256 characters, third keyword first, mention it\'s perfect for enthusiasts',
                     'Section 3 / Description: Minimum 35 characters, describe the design stylishly',
-                    'Brand: Minimum 35 characters, no repetition of keywords from other fields',
+                    'Brand: Maximum 35 characters, no repetition of keywords from other fields',
                     'Keyword strategy: Each field uses DIFFERENT keywords - no repetitions!',
                     'Important: All terms must be checked for trademark conflicts'
                 ],
@@ -1628,7 +1628,7 @@
             if (section3 && section3Display) { const len = section3.value.length; section3Display.textContent = len + ' / 2000 Zeichen (min. 35)'; section3Display.className = 'char-counter' + (len >= 35 ? ' ok' : ' warning'); }
             const brand = document.getElementById('counterBrand');
             const brandDisplay = document.getElementById('counterBrandDisplay');
-            if (brand && brandDisplay) { const len = brand.value.length; brandDisplay.textContent = len + ' / 500 Zeichen (min. 35)'; brandDisplay.className = 'char-counter' + (len >= 35 ? ' ok' : ' warning'); }
+            if (brand && brandDisplay) { const len = brand.value.length; brandDisplay.textContent = len + ' / 35 Zeichen'; brandDisplay.className = 'char-counter' + (len > 35 ? ' error' : ''); }
         }
 
         function updateExtraKeywordsCounter() {
