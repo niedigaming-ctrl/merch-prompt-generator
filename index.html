@@ -1000,7 +1000,6 @@
                 const customColors = document.getElementById('customColors').value;
                 const background = document.getElementById('background').value;
                 const composition = document.getElementById('composition').value;
-                const mood = document.getElementById('mood').value;
                 const mainKeyword = document.getElementById('mainKeyword').value;
                 
                 if (colors === 'custom' && customColors) {
@@ -1034,7 +1033,6 @@
                     else if (colors !== 'custom') prompt += `, ${colors}`;
                     prompt += `, ${background}`;
                     prompt += `, ${composition}`;
-                    prompt += `, ${mood} mood`;
                     if (extras.length > 0) prompt += `, with ${extras.join(', ')}`;
                     prompt += `, crisp clean edges, professional quality, suitable for print-on-demand merchandise, high resolution, detailed textures`;
                     
@@ -1078,7 +1076,6 @@
                         else if (colors !== 'custom') prompt += `, ${colors}`;
                         prompt += `, ${background}`;
                         prompt += `, ${composition}`;
-                        prompt += `, ${mood} mood`;
                         if (extras.length > 0) prompt += `, with ${extras.join(', ')}`;
                         prompt += `\n\nINTEGRATED TYPOGRAPHY:\n`;
                         prompt += `Text: "${finalText}" using ${textStyle} font, ${textPosition}, ${textColors}`;
@@ -1349,7 +1346,7 @@
             ];
             
             variants.forEach((v, i) => {
-                const prompt = `Create a ${style} illustration featuring ${subject}, ${colors}, ${mood} mood${v.suffix}`;
+                const prompt = `Create a ${style} illustration featuring ${subject}, ${colors}${v.suffix}`;
                 document.getElementById(`variant${i+1}Text`).textContent = prompt;
             });
             
