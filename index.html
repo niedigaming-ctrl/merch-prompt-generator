@@ -1039,11 +1039,17 @@
                 
             } else {
                 // === TEXT oder COMBINED ===
-                const customText = document.getElementById('customText').value.trim();
-                const textStyle = document.getElementById('textStyleCombo').value;
-                const textEffects = document.getElementById('textEffectsCombo').value;
-                const textPosition = document.getElementById('textPositionCombo').value;
-                const textColors = document.getElementById('textColorsCombo').value;
+                const customTextEl = document.getElementById('customText');
+                const textStyleEl = document.getElementById('textStyleCombo');
+                const textEffectsEl = document.getElementById('textEffectsCombo');
+                const textPositionEl = document.getElementById('textPositionCombo');
+                const textColorsEl = document.getElementById('textColorsCombo');
+                
+                const customText = customTextEl ? customTextEl.value.trim() : '';
+                const textStyle = textStyleEl ? textStyleEl.value : 'bold sans-serif';
+                const textEffects = textEffectsEl ? textEffectsEl.value : '';
+                const textPosition = textPositionEl ? textPositionEl.value : 'centered prominently';
+                const textColors = textColorsEl ? textColorsEl.value : 'black text on white background';
                 const finalText = customText || generateAutoText();
                 
                 if (currentPromptType === 'text') {
