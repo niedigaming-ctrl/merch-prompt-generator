@@ -556,7 +556,7 @@
             
             <div class="form-group">
                 <label>🔍 Hauptkeyword / Nische</label>
-                <input type="text" id="mainKeyword" placeholder="z.B. 'Football Mom', 'Gamer Life', 'Dog Dad' - wird automatisch an Listing übertragen" oninput="syncKeywordToListing()">
+                <input type="text" id="mainKeyword" placeholder="z.B. 'Football Mom', 'Gamer Life', 'Dog Dad' - wird automatisch an Listing übertragen" oninput="syncKeywordToListing()" onchange="syncKeywordToListing()">
                 <p style="color: #888; font-size: 12px; margin-top: 8px;">💡 Wird automatisch an den Listing Generator übertragen</p>
             </div>
             
@@ -963,10 +963,14 @@
         // ===================== KEYWORD SYNC =====================
         let currentPromptType = 'design';
         function syncKeywordToListing() {
-            const keyword = document.getElementById('mainKeyword').value;
+            const keywordEl = document.getElementById('mainKeyword');
             const listingTitle = document.getElementById('listingTitle');
-            if (listingTitle && !listingTitle.value) {
-                listingTitle.value = keyword;
+            if (keywordEl && listingTitle) {
+                const keyword = keywordEl.value.trim();
+                console.log('Syncing keyword:', keyword); // Debug
+                if (keyword && !listingTitle.value) {
+                    listingTitle.value = keyword;
+                }
             }
         }
         function togglePromptType(type) {
