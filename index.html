@@ -556,8 +556,8 @@
             
             <div class="form-group">
                 <label>🔍 Hauptkeyword / Nische</label>
-                <input type="text" id="mainKeyword" placeholder="z.B. 'Football Mom', 'Gamer Life', 'Dog Dad' - wird automatisch an Listing übertragen" oninput="syncKeywordToListing()" onchange="syncKeywordToListing()">
-                <p style="color: #888; font-size: 12px; margin-top: 8px;">💡 Wird automatisch an den Listing Generator übertragen</p>
+                <input type="text" id="mainKeyword" placeholder="z.B. 'Football Mom', 'Gamer Life', 'Dog Dad'" onblur="syncKeywordToListing()">
+                <p style="color: #888; font-size: 12px; margin-top: 8px;">💡 Wird beim Verlassen des Feldes an den Listing Generator übertragen</p>
             </div>
             
             <!-- PROMPT MODUS AUSWAHL -->
@@ -964,13 +964,39 @@
         let currentPromptType = 'design';
         function syncKeywordToListing() {
             const keywordEl = document.getElementById('mainKeyword');
+            const subjectEl = document.getElementById('subject');
+            const styleEl = document.getElementById('style');
             const listingTitle = document.getElementById('listingTitle');
-            if (keywordEl && listingTitle) {
-                const keyword = keywordEl.value.trim();
-                console.log('Syncing keyword:', keyword); // Debug
-                if (keyword && !listingTitle.value) {
-                    listingTitle.value = keyword;
+            const listingTheme = document.getElementById('listingTheme');
+            const listingStyle = document.getElementById('listingStyle');
+            
+            if (!keywordEl) return;
+            
+            const keyword = keywordEl.value.trim();
+            const subject = subjectEl ? subjectEl.options[subjectEl.selectedIndex]?.text : '';
+            const style = styleEl ? styleEl.options[styleEl.selectedIndex]?.text : '';
+            
+            console.log('Syncing:', { keyword, subject, style });
+            
+            // Hauptkeyword ins Listing-Titel (nur wenn leer)
+            if (keyword && listingTitle && !listingTitle.value) {
+                listingTitle.value = keyword;
+            }
+            
+            // Thema aus dem Motiv übernehmen (nur wenn leer)
+            if (subject && listingTheme && !listingTheme.value) {
+                // Extrahiere Kategorie aus dem Motiv-Text
+                const themeMatch = subject.match(/([\w\s]+)\s*\//);
+                if (themeMatch) {
+                    listingTheme.value = themeMatch[1].trim();
+                } else {
+                    listingTheme.value = subject.split(' ')[0];
                 }
+            }
+            
+            // Stil übernehmen (nur wenn leer)
+            if (style && listingStyle && !listingStyle.value) {
+                listingStyle.value = style.split(' ')[0].toLowerCase();
             }
         }
         function togglePromptType(type) {
