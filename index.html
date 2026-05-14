@@ -206,6 +206,189 @@
             margin-top: 10px;
         }
         
+        /* KATEGORIE-TABS */
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .category-tab {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+        .category-tab:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .category-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-color: transparent;
+        }
+        
+        /* SEASONAL PRESETS */
+        .seasonal-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+        }
+        .seasonal-btn {
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: 2px solid;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .seasonal-btn.christmas { border-color: #c62828; color: #ffcdd2; }
+        .seasonal-btn.christmas:hover, .seasonal-btn.christmas.active { background: #c62828; color: #fff; }
+        .seasonal-btn.halloween { border-color: #ff6f00; color: #ffe0b2; }
+        .seasonal-btn.halloween:hover, .seasonal-btn.halloween.active { background: #ff6f00; color: #fff; }
+        .seasonal-btn.summer { border-color: #0277bd; color: #b3e5fc; }
+        .seasonal-btn.summer:hover, .seasonal-btn.summer.active { background: #0277bd; color: #fff; }
+        .seasonal-btn.valentine { border-color: #ad1457; color: #f8bbd9; }
+        .seasonal-btn.valentine:hover, .seasonal-btn.valentine.active { background: #ad1457; color: #fff; }
+        .seasonal-btn.patriotic { border-color: #1565c0; color: #bbdefb; }
+        .seasonal-btn.patriotic:hover, .seasonal-btn.patriotic.active { background: #1565c0; color: #fff; }
+        .seasonal-btn.fathers { border-color: #2e7d32; color: #c8e6c9; }
+        .seasonal-btn.fathers:hover, .seasonal-btn.fathers.active { background: #2e7d32; color: #fff; }
+        
+        /* VARIANTEN BUTTON */
+        .varianten-section {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .varianten-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .varianten-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .varianten-output {
+            margin-top: 20px;
+            display: none;
+        }
+        .varianten-output.active {
+            display: block;
+        }
+        .variant-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid;
+        }
+        .variant-box.v1 { border-left-color: #4caf50; }
+        .variant-box.v2 { border-left-color: #2196f3; }
+        .variant-box.v3 { border-left-color: #ff9800; }
+        .variant-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        
+        /* SHIRT FARBE BADGE */
+        .shirt-preview {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+        .shirt-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            transition: all 0.3s;
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+        .shirt-badge.black { background: #1a1a1a; }
+        .shirt-badge.white { background: #f5f5f5; color: #333; }
+        .shirt-badge.navy { background: #1a237e; }
+        .shirt-badge.red { background: #b71c1c; }
+        .shirt-badge.green { background: #1b5e20; }
+        .shirt-badge.gray { background: #616161; }
+        .shirt-badge.maroon { background: #4a0000; }
+        .shirt-badge.royal { background: #0d47a1; }
+        .shirt-info {
+            flex: 1;
+        }
+        .shirt-info h4 {
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        .shirt-info p {
+            color: #888;
+            font-size: 13px;
+        }
+        
+        /* DYNAMISCHE COPYRIGHT WARNUNGEN */
+        .copyright-alert {
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            display: none;
+        }
+        .copyright-alert.active { display: block; }
+        .copyright-alert.sport {
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid #ff9800;
+        }
+        .copyright-alert.dark {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid #f44336;
+        }
+        .copyright-alert.geek {
+            background: rgba(156, 39, 176, 0.1);
+            border: 1px solid #9c27b0;
+        }
+        .copyright-alert.safe {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4caf50;
+        }
+        .copyright-alert h4 {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
         .generate-btn {
             width: 100%;
             padding: 18px;
@@ -372,95 +555,45 @@
             </div>
             
             <div class="form-group">
-                <label>⚽ Hauptmotiv</label>
-                <select id="subject">
-                    <option value="stylized soccer ball with dynamic energy">Fußball (stilisiert)</option>
-                    <option value="abstract football field pattern with geometric grass">Spielfeld (abstrakt)</option>
-                    <option value="stadium silhouette with crowd atmosphere">Stadion Silhouette</option>
-                    <option value="vintage sports trophy with classic handles">Pokal (generisch)</option>
-                    <option value="football cleats in dynamic motion">Fußballschuhe</option>
-                    <option value="goal net with abstract motion blur">Tor-Netz</option>
-                    <option value="referee whistle with ribbon elements">Schiedsrichter-Pfeife</option>
-                    <option value="corner flag with wind movement">Eckfahne</option>
-                    <option value="abstract fan crowd silhouette">Fans (Silhouette)</option>
-                    <option value="football trajectory with motion lines">Ball-Flugbahn</option>
-                    <option value="American football in dynamic spiral throw, leather texture">American Football</option>
-                    <option value="basketball with fire trail and hoop silhouette">Basketball</option>
-                    <option value="tennis ball with racket string pattern overlay">Tennis</option>
-                    <option value="racing helmet with speed streaks and checkered flag">Racing / SimRacing</option>
-                    <option value="game controller with neon glow and pixel elements">Gaming / E-Sports</option>
-                    <option value="skateboard deck with urban graffiti elements">Skateboard</option>
-                    <option value="surfboard with tropical wave and palm tree silhouette">Surfen</option>
-                    <option value="mountain bike with forest trail and mud splatter">Mountainbike</option>
-                    <option value="martial arts silhouette with energy aura">Kampfsport</option>
-                    <option value="gym dumbbell with geometric iron plates">Fitness / Gym</option>
-                    <option value="coffee cup with steam art and latte pattern">Kaffee / Café</option>
-                    <option value="beer mug with foam crown and wheat elements">Bier / Brauerei</option>
-                    <option value="vinyl record with sound wave grooves">Musik / Vinyl</option>
-                    <option value="electric guitar with flame details and strings">E-Gitarre</option>
-                    <option value="compass with world map and travel stamps">Reisen / Abenteuer</option>
-                    <option value="camper van with mountain sunset backdrop">Camping / Vanlife</option>
-                    <option value="motorcycle engine with chrome details and flames">Motorrad</option>
-                    <option value="paw print with heart shape and pet collar">Haustiere</option>
-                    <option value="wolf howling at moon with forest silhouette">Wolf / Natur</option>
-                    <option value="lion head with geometric mane pattern">Löwe / Wildlife</option>
-                    <option value="dragon with tribal scales and fire breath">Drache / Fantasy</option>
-                    <option value="skull with floral crown and ornamental details">Skull / Dark Art</option>
-                    <option value="rose with thorns and vintage scroll elements">Rose / Tattoo Style</option>
-                    <option value="crown with jewels and ornamental filigree">Krone / Royal</option>
-                    <option value="lightning bolt with electric crackle and particles">Blitz / Energy</option>
-                    <option value="anchor with rope and ocean wave details">Anker / Maritim</option>
-                    <option value="pine tree with mountain range and camping tent">Wald / Outdoor</option>
-                    <option value="moon phases with stars and cosmic nebula">Mond / Kosmos</option>
-                    <option value="sun with radiating rays and mandala pattern">Sonne / Boho</option>
-                    <option value="diamond with geometric facets and sparkle lines">Diamant / Bling</option>
-                    <option value="crown skull with crossed bones and roses">Biker / Rock</option>
-                    <option value="sushi roll with chopsticks and soy sauce drops">Sushi / Food</option>
-                    <option value="pizza slice with dripping cheese and pepperoni">Pizza / Food</option>
-                    <option value="taco with ingredients explosion and lime slice">Taco / Mexican Food</option>
-                    <option value="burger with sesame bun and fresh layers">Burger / Street Food</option>
-                    <option value="donut with colorful sprinkles and glaze drip">Donut / Sweet</option>
-                    <option value="ice cream cone with triple scoop and waffle texture">Eis / Sommer</option>
-                    <option value="pumpkin with carved face and autumn leaves">Halloween</option>
-                    <option value="ghost with cute expression and sparkles">Halloween Cute</option>
-                    <option value="Christmas tree with ornaments and snowflakes">Weihnachten</option>
-                    <option value="reindeer with red nose and sleigh silhouette">Weihnachten Cute</option>
-                    <option value="heart with arrow and floral wreath">Valentinstag</option>
-                    <option value="birthday cake with candles and confetti explosion">Geburtstag</option>
-                    <option value="shark with ocean wave and surf board">Hai / Ocean</option>
-                    <option value="eagle with spread wings and American flag colors">Adler / Patriot</option>
-                    <option value="astronaut with helmet reflection and space stars">Astronaut / Space</option>
-                    <option value="robot with gears and neon circuit lines">Roboter / Tech</option>
-                    <option value="dice with flames and casino chip elements">Casino / Gaming</option>
-                    <option value="poker cards with royal flush and gold details">Poker / Cards</option>
-                    <option value="camping fire with marshmallow and starry night">Lagerfeuer</option>
-                    <option value="fishing rod with fish jumping and water splash">Angeln</option>
-                    <option value="hunting dog with duck and marsh reeds">Jagd / Outdoor</option>
-                    <option value="tractor with wheat field and sunrise">Landwirt / Traktor</option>
-                    <option value="firefighter helmet with axe and flames">Feuerwehr</option>
-                    <option value="police badge with shield and star details">Polizei</option>
-                    <option value="nurse stethoscope with heart and cross">Krankenpflege</option>
-                    <option value="teacher apple with books and chalkboard">Lehrer / Schule</option>
-                    <option value="graduation cap with diploma and confetti">Abschluss</option>
-                    <option value="mom heart with child handprints and flowers">Mama / Familie</option>
-                    <option value="dad toolbox with wrench and beer can">Papa / Handwerker</option>
-                    <option value="baby onesie with rattle and pacifier">Baby / Neugeborenes</option>
-                    <option value="wedding rings with flowers and champagne">Hochzeit</option>
-                    <option value="paw dog and cat together with love heart">Hunde- & Katzenliebhaber</option>
-                    <option value="mushroom with forest floor and fern leaves">Pilz / Cottagecore</option>
-                    <option value="butterfly with watercolor wings and flowers">Schmetterling / Natur</option>
-                    <option value="bee with honeycomb and flower pollen">Biene / Natur</option>
-                    <option value="turtle with ocean waves and coral reef">Schildkröte / Meer</option>
-                    <option value="owl with moon and tree branch silhouette">Eule / Nacht</option>
-                    <option value="fox with autumn leaves and forest background">Fuchs / Herbst</option>
-                    <option value="bear with mountain forest and salmon">Bär / Wildnis</option>
-                    <option value="dolphin with jumping wave and sunset">Delfin / Ozean</option>
-                </select>
+                <label>🎨 Motiv-Kategorie wählen</label>
+                
+                <div class="category-tabs" id="categoryTabs">
+                    <button class="category-tab active" onclick="switchCategory('sport')" data-cat="sport">⚽ Sport</button>
+                    <button class="category-tab" onclick="switchCategory('nature')" data-cat="nature">🌲 Natur</button>
+                    <button class="category-tab" onclick="switchCategory('food')" data-cat="food">🍕 Food</button>
+                    <button class="category-tab" onclick="switchCategory('seasonal')" data-cat="seasonal">🎄 Seasonal</button>
+                    <button class="category-tab" onclick="switchCategory('dark')" data-cat="dark">💀 Dark</button>
+                    <button class="category-tab" onclick="switchCategory('geek')" data-cat="geek">🎮 Geek</button>
+                    <button class="category-tab" onclick="switchCategory('life')" data-cat="life">👨‍👩‍👧 Lifestyle</button>
+                </div>
+                
+                <div class="copyright-alert sport active" id="copyrightSport">
+                    <h4>⚠️ Sport-Motive</h4>
+                    <p>Vermeide: Markenlogos, Team-Wappen, Spieler-Namen, offizielle Maskottchen</p>
+                </div>
+                <div class="copyright-alert dark" id="copyrightDark">
+                    <h4>⚠️ Dark Art</h4>
+                    <p>Vermeide: Tattoos von anderen Künstlern, band-spezifische Logos, geschützte Symbole</p>
+                </div>
+                <div class="copyright-alert geek" id="copyrightGeek">
+                    <h4>⚠️ Geek/Gaming</h4>
+                    <p>Vermeide: Videospiel-Charaktere, Film-Quotes, protected IP, Game-Logos</p>
+                </div>
+                <div class="copyright-alert safe" id="copyrightSafe">
+                    <h4>✅ Diese Kategorie ist sicher</h4>
+                    <p>Generische Motive ohne hohes Copyright-Risiko</p>
+                </div>
+                
+                <select id="subject" onchange="updateShirtPreview()"></select>
+                
+                <div class="shirt-preview">
+                    <div class="shirt-badge" id="shirtBadge">👕</div>
+                    <div class="shirt-info">
+                        <h4>Empfohlene Shirt-Farbe</h4>
+                        <p id="shirtColorText">Wähle ein Motiv...</p>
+                    </div>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label>🎨 Farbschema</label>
-                <select id="colors">
                     <option value="rainbow spectrum, vivid saturated colors: hot pink, red, orange, yellow, lime green, cyan, deep blue, violet">Regenbogen (bunt)</option>
                     <option value="classic black, white and silver monochrome">Schwarz/Weiß/Silber</option>
                     <option value="vintage sepia tones, warm browns and creams">Vintage Sepia</option>
@@ -543,7 +676,41 @@
             </div>
         </div>
         
+        <!-- SEASONAL PRESETS -->
+        <div class="seasonal-presets" id="seasonalPresets">
+            <span style="color:#888;font-size:12px;text-transform:uppercase;letter-spacing:1px;width:100%;margin-bottom:5px;">🎄 Seasonal Quick-Presets</span>
+            <button class="seasonal-btn christmas" onclick="applySeasonal('christmas')">🎄 Weihnachten</button>
+            <button class="seasonal-btn halloween" onclick="applySeasonal('halloween')">🎃 Halloween</button>
+            <button class="seasonal-btn summer" onclick="applySeasonal('summer')">☀️ Sommer</button>
+            <button class="seasonal-btn valentine" onclick="applySeasonal('valentine')">💝 Valentinstag</button>
+            <button class="seasonal-btn patriotic" onclick="applySeasonal('patriotic')">🇺🇸 Patriotic</button>
+            <button class="seasonal-btn fathers" onclick="applySeasonal('fathers')">👨 Vatertag</button>
+        </div>
+        
         <button class="generate-btn" onclick="generatePrompt()">🎯 Prompt Generieren</button>
+        
+        <!-- 3 VARIANTEN BUTTON -->
+        <div class="varianten-section">
+            <p style="color:#888;margin-bottom:12px;">Oder generiere direkt 3 Varianten:</p>
+            <button class="varianten-btn" onclick="generate3Variants()">🎲 3 Varianten generieren</button>
+            <div class="varianten-output" id="variantenOutput">
+                <div class="variant-box v1" id="variant1">
+                    <div class="variant-title">🎨 Variante 1 — Bold &amp; Eye-Catching</div>
+                    <div class="prompt-output" id="variant1Text"></div>
+                    <button class="copy-btn" onclick="copyVariant(1)">📋 Kopieren</button>
+                </div>
+                <div class="variant-box v2" id="variant2">
+                    <div class="variant-title">💎 Variante 2 — Minimalist &amp; Clean</div>
+                    <div class="prompt-output" id="variant2Text"></div>
+                    <button class="copy-btn" onclick="copyVariant(2)">📋 Kopieren</button>
+                </div>
+                <div class="variant-box v3" id="variant3">
+                    <div class="variant-title">🔥 Variante 3 — Detail-Rich &amp; Artistic</div>
+                    <div class="prompt-output" id="variant3Text"></div>
+                    <button class="copy-btn" onclick="copyVariant(3)">📋 Kopieren</button>
+                </div>
+            </div>
+        </div>
         
         <div id="result" class="result-box">
             <h3>🎨 Generierter Prompt</h3>
@@ -985,6 +1152,233 @@
                 alert('✅ Recraft-optimierter Text-Prompt kopiert!');
             });
         }
+        
+        // ===================== MOTIF CATEGORIES =====================
+        const MOTIFS = {
+            sport: [
+                {val: "stylized soccer ball with dynamic energy", name: "Fußball (stilisiert)", shirt: "black"},
+                {val: "abstract football field pattern with geometric grass", name: "Spielfeld (abstrakt)", shirt: "green"},
+                {val: "stadium silhouette with crowd atmosphere", name: "Stadion Silhouette", shirt: "navy"},
+                {val: "vintage sports trophy with classic handles", name: "Pokal (generisch)", shirt: "gold"},
+                {val: "football cleats in dynamic motion", name: "Fußballschuhe", shirt: "black"},
+                {val: "American football in dynamic spiral throw", name: "American Football", shirt: "brown"},
+                {val: "basketball with fire trail and hoop silhouette", name: "Basketball", shirt: "black"},
+                {val: "racing helmet with speed streaks and checkered flag", name: "Racing / SimRacing", shirt: "black"},
+                {val: "game controller with neon glow and pixel elements", name: "Gaming / E-Sports", shirt: "black"},
+                {val: "skateboard deck with urban graffiti elements", name: "Skateboard", shirt: "white"},
+                {val: "gym dumbbell with geometric iron plates", name: "Fitness / Gym", shirt: "black"},
+                {val: "martial arts silhouette with energy aura", name: "Kampfsport", shirt: "black"},
+                {val: "surfboard with tropical wave and palm tree", name: "Surfen", shirt: "navy"},
+                {val: "mountain bike with forest trail and mud splatter", name: "Mountainbike", shirt: "green"}
+            ],
+            nature: [
+                {val: "wolf howling at moon with forest silhouette", name: "Wolf / Natur", shirt: "black"},
+                {val: "lion head with geometric mane pattern", name: "Löwe / Wildlife", shirt: "black"},
+                {val: "dragon with tribal scales and fire breath", name: "Drache / Fantasy", shirt: "black"},
+                {val: "pine tree with mountain range and camping tent", name: "Wald / Outdoor", shirt: "green"},
+                {val: "moon phases with stars and cosmic nebula", name: "Mond / Kosmos", shirt: "navy"},
+                {val: "sun with radiating rays and mandala pattern", name: "Sonne / Boho", shirt: "white"},
+                {val: "butterfly with watercolor wings and flowers", name: "Schmetterling / Natur", shirt: "white"},
+                {val: "mushroom with forest floor and fern leaves", name: "Pilz / Cottagecore", shirt: "green"},
+                {val: "anchor with rope and ocean wave details", name: "Anker / Maritim", shirt: "navy"},
+                {val: "lightning bolt with electric crackle and particles", name: "Blitz / Energy", shirt: "black"},
+                {val: "owl with moon and tree branch silhouette", name: "Eule / Nacht", shirt: "black"},
+                {val: "fox with autumn leaves and forest background", name: "Fuchs / Herbst", shirt: "maroon"},
+                {val: "dolphin with jumping wave and sunset", name: "Delfin / Ozean", shirt: "navy"},
+                {val: "bee with honeycomb and flower pollen", name: "Biene / Natur", shirt: "yellow"}
+            ],
+            food: [
+                {val: "coffee cup with steam art and latte pattern", name: "Kaffee / Café", shirt: "white"},
+                {val: "beer mug with foam crown and wheat elements", name: "Bier / Brauerei", shirt: "gold"},
+                {val: "sushi roll with chopsticks and soy sauce drops", name: "Sushi / Food", shirt: "white"},
+                {val: "pizza slice with dripping cheese and pepperoni", name: "Pizza / Food", shirt: "white"},
+                {val: "taco with ingredients explosion and lime slice", name: "Taco / Mexican Food", shirt: "white"},
+                {val: "burger with sesame bun and fresh layers", name: "Burger / Street Food", shirt: "white"},
+                {val: "donut with colorful sprinkles and glaze drip", name: "Donut / Sweet", shirt: "pink"},
+                {val: "ice cream cone with triple scoop and waffle texture", name: "Eis / Sommer", shirt: "white"},
+                {val: "watermelon slice with seeds and summer vibes", name: "Wassermelone", shirt: "white"},
+                {val: "avocado with cute face and toast elements", name: "Avocado", shirt: "white"}
+            ],
+            seasonal: [
+                {val: "Christmas tree with ornaments and snowflakes", name: "🎄 Weihnachten", shirt: "green"},
+                {val: "reindeer with red nose and sleigh silhouette", name: "🦌 Rentier", shirt: "red"},
+                {val: "snowflake with intricate crystal pattern", name: "❄️ Schneeflocke", shirt: "navy"},
+                {val: "pumpkin with carved face and autumn leaves", name: "🎃 Halloween Kürbis", shirt: "black"},
+                {val: "ghost with cute expression and sparkles", name: "👻 Halloween Cute", shirt: "black"},
+                {val: "skull with spider web and bat wings", name: "💀 Halloween Dark", shirt: "black"},
+                {val: "heart with arrow and floral wreath", name: "💝 Valentinstag", shirt: "red"},
+                {val: "birthday cake with candles and confetti explosion", name: "🎂 Geburtstag", shirt: "white"},
+                {val: "eagle with spread wings and patriotic stars", name: "🇺🇸 Patriotic Eagle", shirt: "navy"},
+                {val: "dad toolbox with wrench and beer can", name: "👨 Vatertag / Papa", shirt: "gray"},
+                {val: "mom heart with child handprints and flowers", name: "👩 Mama / Muttertag", shirt: "pink"},
+                {val: "fireworks burst with stars and celebration", name: "🎉 Neujahr / Silvester", shirt: "black"}
+            ],
+            dark: [
+                {val: "skull with floral crown and ornamental details", name: "Skull / Dark Art", shirt: "black"},
+                {val: "crown skull with crossed bones and roses", name: "Biker / Rock", shirt: "black"},
+                {val: "gothic cathedral arch with stained glass skull", name: "Gothic Cathedral", shirt: "black"},
+                {val: "snake coiled around dagger with roses", name: "Schlange / Dagger", shirt: "black"},
+                {val: "raven perched on skull with moonlight", name: "Rabe / Dark", shirt: "black"},
+                {val: "witch hat with stars and potion bottles", name: "Hexe / Dark Magic", shirt: "black"},
+                {val: "vampire bat with blood moon and fog", name: "Vampir / Dark", shirt: "black"},
+                {val: "occult hand with evil eye and crescent moon", name: "Occult / Mystic", shirt: "black"},
+                {val: "grim reaper with scythe and hourglass", name: "Grim Reaper", shirt: "black"},
+                {val: "black cat with arched back and glowing eyes", name: "Black Cat / Dark", shirt: "black"}
+            ],
+            geek: [
+                {val: "game controller with neon glow and pixel elements", name: "Gaming / E-Sports", shirt: "black"},
+                {val: "robot with gears and neon circuit lines", name: "Roboter / Tech", shirt: "black"},
+                {val: "astronaut with helmet reflection and space stars", name: "Astronaut / Space", shirt: "navy"},
+                {val: "pixel heart with 8-bit color blocks", name: "Pixel Heart / Retro", shirt: "black"},
+                {val: "d20 dice with glowing numbers and sparkles", name: "D20 / Tabletop RPG", shirt: "navy"},
+                {val: "code bracket with syntax highlighting colors", name: "Coder / Developer", shirt: "black"},
+                {val: "science flask with bubbling liquid and atoms", name: "Science / Nerd", shirt: "white"},
+                {val: "retro arcade cabinet with joystick and screen", name: "Arcade / Retro", shirt: "black"},
+                {val: "circuit board with glowing pathways", name: "Circuit / Tech", shirt: "black"},
+                {val: "VR headset with digital world reflection", name: "VR / Future", shirt: "black"}
+            ],
+            life: [
+                {val: "compass with world map and travel stamps", name: "Reisen / Abenteuer", shirt: "navy"},
+                {val: "camper van with mountain sunset backdrop", name: "Camping / Vanlife", shirt: "green"},
+                {val: "paw print with heart shape and pet collar", name: "Haustiere", shirt: "white"},
+                {val: "motorcycle engine with chrome details and flames", name: "Motorrad", shirt: "black"},
+                {val: "wedding rings with flowers and champagne", name: "Hochzeit", shirt: "white"},
+                {val: "baby onesie with rattle and pacifier", name: "Baby / Neugeborenes", shirt: "white"},
+                {val: "graduation cap with diploma and confetti", name: "Abschluss", shirt: "navy"},
+                {val: "nurse stethoscope with heart and cross", name: "Krankenpflege", shirt: "white"},
+                {val: "firefighter helmet with axe and flames", name: "Feuerwehr", shirt: "red"},
+                {val: "teacher apple with books and chalkboard", name: "Lehrer / Schule", shirt: "white"},
+                {val: "fishing rod with fish jumping and water splash", name: "Angeln", shirt: "navy"},
+                {val: "tractor with wheat field and sunrise", name: "Landwirt / Traktor", shirt: "green"}
+            ]
+        };
+        
+        // SHIRT COLOR MAPPING
+        const SHIRT_COLORS = {
+            black: {bg: '#1a1a1a', text: 'Schwarz — Klassisch, hoher Kontrast', emoji: '👕'},
+            white: {bg: '#f5f5f5', text: 'Weiß — Clean, sommerlich', emoji: '👕'},
+            navy: {bg: '#1a237e', text: 'Navy — Elegant, vielseitig', emoji: '👕'},
+            red: {bg: '#b71c1c', text: 'Rot — Auffällig, sportlich', emoji: '👕'},
+            green: {bg: '#1b5e20', text: 'Grün — Natur, Outdoor', emoji: '👕'},
+            gray: {bg: '#616161', text: 'Grau — Lässig, neutral', emoji: '👕'},
+            maroon: {bg: '#4a0000', text: 'Maroon — Herbstlich, warm', emoji: '👕'},
+            gold: {bg: '#8B6914', text: 'Gold — Vintage, Premium', emoji: '👕'},
+            pink: {bg: '#ad1457', text: 'Pink — Verspielt, süß', emoji: '👕'},
+            yellow: {bg: '#f9a825', text: 'Gelb — Fröhlich, sommerlich', emoji: '👕'}
+        };
+        
+        // SEASONAL PRESETS
+        const SEASONAL_PRESETS = {
+            christmas: {style: 'retro vintage style, distressed texture, 1970s aesthetic', subject: 'Christmas tree with ornaments and snowflakes', colors: 'red and green holiday colors with gold accents on dark background', mood: 'festive warm joyful holiday spirit'},
+            halloween: {style: 'neon cyberpunk, glowing effects, futuristic', subject: 'pumpkin with carved face and autumn leaves', colors: 'orange and black with purple neon glow', mood: 'spooky fun mysterious dark'},
+            summer: {style: 'watercolor painting, soft edges, artistic brush strokes', subject: 'ice cream cone with triple scoop and waffle texture', colors: 'bright tropical sunset colors, pink orange yellow teal', mood: 'carefree sunny beach vacation vibes'},
+            valentine: {style: 'botanical illustration, detailed flowers and leaves', subject: 'heart with arrow and floral wreath', colors: 'pink and red roses with soft cream background', mood: 'romantic sweet loving tender'},
+            patriotic: {style: '3D rendered, hyper-realistic, glossy metallic finish', subject: 'eagle with spread wings and patriotic stars', colors: 'red white and blue with silver accents', mood: 'bold proud strong unified'},
+            fathers: {style: 'vintage retro style, distressed texture, bold typography', subject: 'dad toolbox with wrench and beer can', colors: 'dark brown and cream with copper accents', mood: 'strong reliable humorous dad energy'}
+        };
+        
+        // CURRENT CATEGORY
+        let currentCategory = 'sport';
+        
+        function switchCategory(cat) {
+            currentCategory = cat;
+            // Update tab buttons
+            document.querySelectorAll('.category-tab').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.cat === cat);
+            });
+            // Update dropdown
+            const select = document.getElementById('subject');
+            select.innerHTML = '';
+            MOTIFS[cat].forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.val;
+                opt.textContent = m.name;
+                select.appendChild(opt);
+            });
+            // Update copyright alerts
+            document.querySelectorAll('.copyright-alert').forEach(el => el.classList.remove('active'));
+            if (cat === 'sport') document.getElementById('copyrightSport').classList.add('active');
+            else if (cat === 'dark') document.getElementById('copyrightDark').classList.add('active');
+            else if (cat === 'geek') document.getElementById('copyrightGeek').classList.add('active');
+            else document.getElementById('copyrightSafe').classList.add('active');
+            // Update shirt preview
+            updateShirtPreview();
+        }
+        
+        function updateShirtPreview() {
+            const select = document.getElementById('subject');
+            if (!select.value) return;
+            const cat = MOTIFS[currentCategory];
+            const motif = cat.find(m => m.val === select.value);
+            if (!motif) return;
+            const color = SHIRT_COLORS[motif.shirt] || SHIRT_COLORS.black;
+            const badge = document.getElementById('shirtBadge');
+            badge.style.background = color.bg;
+            badge.textContent = '👕';
+            badge.className = 'shirt-badge';
+            // Add white class for light backgrounds
+            if (['white', 'yellow'].includes(motif.shirt)) {
+                badge.style.color = '#333';
+            } else {
+                badge.style.color = '#fff';
+            }
+            document.getElementById('shirtColorText').textContent = color.text;
+        }
+        
+        function applySeasonal(preset) {
+            const p = SEASONAL_PRESETS[preset];
+            if (!p) return;
+            // Update form fields
+            document.getElementById('style').value = p.style;
+            switchCategory('seasonal');
+            // Set subject
+            const select = document.getElementById('subject');
+            for (let opt of select.options) {
+                if (opt.value.includes(p.subject.split(' ').slice(0,3).join(' '))) {
+                    select.value = opt.value;
+                    break;
+                }
+            }
+            document.getElementById('colors').value = p.colors;
+            document.getElementById('mood').value = p.mood;
+            // Highlight preset button
+            document.querySelectorAll('.seasonal-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.seasonal-btn').classList.add('active');
+            updateShirtPreview();
+        }
+        
+        // Initialize categories
+        switchCategory('sport');
+        
+        // ===================== 3 VARIANTS =====================
+        function generate3Variants() {
+            const style = document.getElementById('style').value;
+            const subject = document.getElementById('subject').value;
+            const colors = document.getElementById('colors').value;
+            const mood = document.getElementById('mood').value;
+            
+            if (!subject) { alert('Bitte wähle ein Motiv!'); return; }
+            
+            const variants = [
+                {title: '🎨 Variante 1 — Bold & Eye-Catching', suffix: ', bold high contrast, vibrant colors, strong outlines, eye-catching center design, t-shirt design, print-ready vector, 300dpi'},
+                {title: '💎 Variante 2 — Minimalist & Clean', suffix: ', clean minimalist, simple shapes, limited color palette, elegant white space, modern design, t-shirt design, print-ready vector, 300dpi'},
+                {title: '🔥 Variante 3 — Detail-Rich & Artistic', suffix: ', highly detailed, intricate patterns, artistic texture, rich color depth, professional illustration, t-shirt design, print-ready vector, 300dpi'}
+            ];
+            
+            variants.forEach((v, i) => {
+                const prompt = `Create a ${style} illustration featuring ${subject}, ${colors}, ${mood} mood${v.suffix}`;
+                document.getElementById(`variant${i+1}Text`).textContent = prompt;
+            });
+            
+            document.getElementById('variantenOutput').classList.add('active');
+            document.getElementById('variantenOutput').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function copyVariant(num) {
+            const text = document.getElementById(`variant${num}Text`).textContent;
+            navigator.clipboard.writeText(text).then(() => alert(`✅ Variante ${num} kopiert!`));
+        }
+        
     </script>
     <script>
         // ===================== TAB SWITCHING =====================
