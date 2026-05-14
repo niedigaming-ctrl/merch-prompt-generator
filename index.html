@@ -959,65 +959,119 @@
         </footer>
     </div>
     
-    <script>
         // ===================== KEYWORD SYNC =====================
         let currentPromptType = 'design';
         
-        function syncKeywordToListing() {
-            const keywordEl = document.getElementById('mainKeyword');
+        // Mapping: Kategorie → Listing-Thema
+        const CATEGORY_TO_THEME = {
+            sport: 'gaming esports',
+            nature: 'nature outdoors',
+            food: 'sports general',
+            seasonal: 'sports general',
+            dark: 'gaming esports',
+            geek: 'gaming esports',
+            life: 'sports general'
+        };
+        
+        // Mapping: Motiv-Name (Teilstring) → Listing-Thema
+        const MOTIF_TO_THEME = [
+            {keywords: ['fußball', 'soccer', 'football', 'spielfeld', 'stadion', 'pokal', 'fußballschuh'], theme: 'soccer football'},
+            {keywords: ['basketball'], theme: 'sports general'},
+            {keywords: ['racing', 'simracing', 'racing helm', 'rennen'], theme: 'racing motorsport'},
+            {keywords: ['game controller', 'gaming', 'e-sports', 'gamer', 'pixel', 'controller'], theme: 'gaming esports'},
+            {keywords: ['wolf', 'löwe', 'drache', 'fuchs', 'eule', 'schmetterling', 'pilz', 'biene', 'delfin'], theme: 'nature outdoors'},
+            {keywords: ['wald', 'berg', 'outdoor', 'camping', 'surfen', 'mountainbike'], theme: 'nature outdoors'},
+            {keywords: ['mond', 'sonne', 'blitz', 'kosmos'], theme: 'nature outdoors'},
+            {keywords: ['kaffee', 'bier', 'sushi', 'pizza', 'taco', 'burger', 'donut', 'eis', 'avocado', 'wassermelone'], theme: 'sports general'},
+            {keywords: ['weihnacht', 'rentier', 'schneeflocke', 'halloween', 'valentin', 'geburtstag', 'vatertag', 'patriotic'], theme: 'sports general'},
+            {keywords: ['skull', 'totenkopf', 'dark', 'gothic', 'snake', 'schlange'], theme: 'gaming esports'},
+            {keywords: ['robot', 'spaceship', 'ufo', 'alien', 'pixel', 'retro game'], theme: 'gaming esports'},
+            {keywords: ['dog', 'cat', 'hund', 'katze', 'pet'], theme: 'nature outdoors'},
+            {keywords: ['reise', 'abenteuer', 'travel', 'adventure'], theme: 'travel adventure'},
+            {keywords: ['musik', 'gitarre', 'festival', 'dj', 'rock'], theme: 'music festival'},
+        ];
+        
+        // Mapping: Design-Stil-Name → Listing-Stil
+        const STYLE_TO_LISTING = [
+            {keywords: ['3d', 'metallic', 'hyper-realistic'], style: '3d metallic'},
+            {keywords: ['flat', 'vector', 'minimalist', 'minimal'], style: 'modern minimalist'},
+            {keywords: ['retro', 'vintage', 'distressed', '1970'], style: 'vintage retro'},
+            {keywords: ['streetwear', 'graffiti', 'urban', 'grunge'], style: 'grunge streetwear'},
+            {keywords: ['watercolor', 'watercolour', 'painting', 'brush'], style: 'watercolor artistic'},
+            {keywords: ['geometric', 'abstract', 'low poly', 'angular'], style: 'geometric abstract'},
+            {keywords: ['line art', 'outline', 'continuous line'], style: 'modern minimalist'},
+            {keywords: ['neon', 'cyberpunk', 'glowing', 'futuristic'], style: 'grunge streetwear'},
+            {keywords: ['sketch', 'hand-drawn', 'pencil', 'raw'], style: 'vintage retro'},
+            {keywords: ['pop art', 'bold colors', 'comic', 'ben-day'], style: 'modern minimalist'},
+            {keywords: ['anime', 'manga', 'cel shading'], style: 'grunge streetwear'},
+            {keywords: ['pixel', '8-bit', 'retro game'], style: 'grunge streetwear'},
+            {keywords: ['art deco', 'gatsby', 'gold pattern'], style: 'vintage retro'},
+            {keywords: ['steampunk', 'brass', 'copper', 'victorian'], style: 'vintage retro'},
+            {keywords: ['botanical', 'floral', 'flowers', 'illustration'], style: 'watercolor artistic'},
+            {keywords: ['gothic', 'medieval', 'ornate', 'cathedral'], style: 'vintage retro'},
+            {keywords: ['memphis', '1980s', 'squiggles'], style: 'geometric abstract'},
+            {keywords: ['paper cutout', 'layered', 'origami'], style: '3d metallic'},
+            {keywords: ['chalkboard', 'chalk', 'lettering'], style: 'vintage retro'},
+            {keywords: ['double exposure', 'silhouette', 'dreamy'], style: 'watercolor artistic'},
+        ];
+        
+        function findThemeFromMotif(subjectText) {
+            const lower = subjectText.toLowerCase();
+            for (const mapping of MOTIF_TO_THEME) {
+                if (mapping.keywords.some(kw => lower.includes(kw))) {
+                    return mapping.theme;
+                }
+            }
+            // Fallback: Kategorie-basiert
+            return CATEGORY_TO_THEME[currentCategory] || 'sports general';
+        }
+        
+        function findStyleFromDesign(styleText) {
+            const lower = styleText.toLowerCase();
+            for (const mapping of STYLE_TO_LISTING) {
+                if (mapping.keywords.some(kw => lower.includes(kw))) {
+                    return mapping.style;
+                }
+            }
+            return 'vintage retro'; // Default
+        }
+        
+        function syncDesignToListing() {
             const subjectEl = document.getElementById('subject');
             const styleEl = document.getElementById('style');
+            const mainKeywordEl = document.getElementById('mainKeyword');
             
             const listingTitle = document.getElementById('listingTitle');
             const listingTheme = document.getElementById('listingTheme');
             const listingStyle = document.getElementById('listingStyle');
             const listingKeywords = document.getElementById('listingKeywords');
             
-            if (!keywordEl) {
-                console.log('mainKeyword nicht gefunden');
-                return;
-            }
+            const keyword = mainKeywordEl ? mainKeywordEl.value.trim() : '';
             
-            const keyword = keywordEl.value.trim();
-            console.log('Keyword:', keyword, 'SubjectEl:', !!subjectEl, 'ThemeEl:', !!listingTheme, 'StyleEl:', !!listingStyle);
-            
-            // 1. TITEL
-            if (keyword && listingTitle && !listingTitle.value) {
-                listingTitle.value = keyword;
-                console.log('Titel gesetzt:', keyword);
-            }
-            
-            // 2. THEMA (aus Motiv-Text vor dem /)
+            // 1. THEMA: Aus Motiv-Namen ableiten
             if (subjectEl && listingTheme) {
-                const selectedOption = subjectEl.options[subjectEl.selectedIndex];
-                const subjectText = selectedOption ? selectedOption.text : '';
-                console.log('Motiv-Text:', subjectText);
-                
-                if (!listingTheme.value) {
-                    // Nimm alles vor dem "/"
-                    const theme = subjectText.split('/')[0].trim();
-                    if (theme) {
-                        listingTheme.value = theme;
-                        console.log('Thema gesetzt:', theme);
-                    }
-                }
+                const subjectName = subjectEl.options[subjectEl.selectedIndex]?.text || '';
+                const themeValue = findThemeFromMotif(subjectName);
+                listingTheme.value = themeValue;
+                console.log('Thema:', subjectName, '→', themeValue);
             }
             
-            // 3. STIL (erstes Wort aus style value)
+            // 2. STIL: Aus Design-Stil ableiten
             if (styleEl && listingStyle) {
-                const styleValue = styleEl.value || '';
-                console.log('Style-Value:', styleValue);
-                
-                if (!listingStyle.value) {
-                    const styleName = styleValue.split(',')[0].trim();
-                    if (styleName) {
-                        listingStyle.value = styleName;
-                        console.log('Stil gesetzt:', styleName);
-                    }
-                }
+                const styleName = styleEl.options[styleEl.selectedIndex]?.text || '';
+                const styleValue = findStyleFromDesign(styleName);
+                listingStyle.value = styleValue;
+                console.log('Stil:', styleName, '→', styleValue);
             }
             
-            // 4. KEYWORDS (Amazon-konform)
+            // 3. TITEL: Hauptkeyword + Thema
+            if (keyword && listingTitle) {
+                const subjectName = subjectEl ? subjectEl.options[subjectEl.selectedIndex]?.text.split('(')[0].trim() : '';
+                listingTitle.value = keyword;
+                console.log('Titel:', keyword);
+            }
+            
+            // 4. KEYWORDS: Amazon-konform
             if (keyword && listingKeywords && !listingKeywords.value) {
                 const base = keyword.toLowerCase();
                 const kws = [
@@ -1026,10 +1080,11 @@
                     'custom ' + base, 'unique ' + base
                 ].join(', ');
                 listingKeywords.value = kws;
-                console.log('Keywords gesetzt');
             }
-            
-            console.log('Synced:', keyword);
+        }
+        
+        function syncKeywordToListing() {
+            syncDesignToListing();
         }
         
         function togglePromptType(type) {
