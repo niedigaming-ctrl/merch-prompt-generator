@@ -838,115 +838,84 @@
         </div><!-- Ende tab-content-design -->
         
         <!-- TAB: LISTING GENERATOR -->
-        <div id="tab-content-listing" class="tab-content">
-            
-            <div class="warning-box">
-                <h3>⚠️ Listing-Rechtliche Hinweise</h3>
-                <ul>
-                    <li class="safe">✅ Eigene Beschreibungen schreiben — keine Copy-Paste von anderen</li>
-                    <li class="safe">✅ Generische Keywords verwenden ohne Markennamen</li>
-                    <li class="unsafe">❌ "FIFA World Cup", "Super Bowl", "Olympics" — geschützte Begriffe</li>
-                    <li class="warning">⚠️ "WM 2026", "Championship", "Global Tournament" sind sicherer</li>
-                </ul>
-            </div>
+                <div id="tab-content-listing" class="tab-content">
+            <h2>⚙️ Amazon Merch Listing Generator</h2>
+            <p class="subtitle">Optimierte Listings für Amazon Merch (DE &amp; US)</p>
             
             <div class="form-grid">
                 <div class="form-group" style="grid-column: 1 / -1;">
-                    <label>📝 Produkttitel</label>
-                    <input type="text" id="listingTitle" placeholder="Vintage Soccer Graphic T-Shirt" maxlength="140">
-                    <div class="char-counter" id="titleCounter">0 / 140 Zeichen</div>
+                    <label>🔍 Hauptkeyword / Nische</label>
+                    <input type="text" id="merchMainKeyword" placeholder="z.B. 'Gamer', 'Football Mom', 'Dog Dad'" maxlength="60" oninput="syncKeywordToListing()">
+                    <p style="color: #888; font-size: 12px; margin-top: 8px;">💡 Wird automatisch aus Tab 1 übernommen</p>
                 </div>
                 
                 <div class="form-group">
-                    <label>🎨 Design-Stil</label>
-                    <select id="listingStyle">
-                        <option value="vintage retro">Vintage / Retro</option>
-                        <option value="modern minimalist">Modern / Minimalist</option>
-                        <option value="grunge streetwear">Grunge / Streetwear</option>
-                        <option value="geometric abstract">Geometrisch / Abstrakt</option>
-                        <option value="watercolor artistic">Watercolor / Künstlerisch</option>
-                        <option value="3d metallic">3D / Metallic</option>
-                        <option value="sporty athletic">Sporty / Athletic</option>
+                    <label>🌍 Zielmarkt</label>
+                    <select id="merchMarket">
+                        <option value="de">🇩🇪 Amazon Merch DE</option>
+                        <option value="us">🇺🇸 Amazon Merch US</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label>⚽ Thema</label>
-                    <select id="listingTheme">
-                        <option value="soccer football">Soccer / Football</option>
-                        <option value="sports general">Sports (allgemein)</option>
-                        <option value="gaming esports">Gaming / E-Sports</option>
-                        <option value="racing motorsport">Racing / Motorsport</option>
-                        <option value="nature outdoors">Natur / Outdoor</option>
-                        <option value="animal wildlife">Tiere / Wildlife</option>
-                        <option value="music festival">Musik / Festival</option>
-                        <option value="travel adventure">Reisen / Abenteuer</option>
-                    </select>
+                    <label>🖼️ Design-Bild (optional)</label>
+                    <input type="file" id="merchImage" accept="image/*" onchange="previewImage(this)" style="display: none;">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('merchImage').click()">📷 Bild auswählen</button>
+                    <div id="imagePreview" style="margin-top: 10px; max-width: 200px; display: none;">
+                        <img id="previewImg" style="max-width: 100%; border-radius: 8px; border: 2px solid #667eea;">
+                    </div>
+                    <p style="color: #888; font-size: 11px; margin-top: 5px;">Nur Vorschau — kein Upload</p>
                 </div>
                 
                 <div class="form-group" style="grid-column: 1 / -1;">
-                    <label>🎯 Haupt-Keywords (kommagetrennt)</label>
-                    <input type="text" id="listingKeywords" placeholder="soccer shirt, vintage football tee, retro sports apparel..." maxlength="500">
-                    <div class="char-counter" id="keywordsCounter">0 / 500 Zeichen</div>
-                </div>
-                
-                <div class="form-group">
-                    <label>👕 Produkt-Typ</label>
-                    <select id="listingProduct">
-                        <option value="t-shirt">T-Shirt (Unisex)</option>
-                        <option value="t-shirt women">T-Shirt (Damen)</option>
-                        <option value="hoodie">Hoodie / Sweatshirt</option>
-                        <option value="tank top">Tank Top / Muscleshirt</option>
-                        <option value="longsleeve">Longsleeve</option>
-                        <option value="kids">Kinder / Youth</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label>📏 Zielgruppe</label>
-                    <select id="listingAudience">
-                        <option value="men">Männer</option>
-                        <option value="women">Frauen</option>
-                        <option value="unisex">Unisex</option>
-                        <option value="kids">Kinder</option>
-                        <option value="fans">Sport-Fans</option>
-                        <option value="gamers">Gamer</option>
-                    </select>
-                </div>
-                
-                <div class="form-group" style="grid-column: 1 / -1;">
-                    <label>📝 Produktbeschreibung</label>
-                    <textarea id="listingDescription" rows="4" maxlength="5000" placeholder="Beschreibe das Design..."></textarea>
-                    <div class="char-counter" id="descCounter">0 / 5000 Zeichen</div>
+                    <label>🏷️ Zusätzliche Keywords (kommagetrennt, optional)</label>
+                    <input type="text" id="merchExtraKeywords" placeholder="z.B. vintage, retro, gaming setup, controller..." maxlength="500" oninput="updateExtraKeywordsCounter()">
+                    <div class="char-counter" id="extraKeywordsCounter">0 / 500 Zeichen</div>
                 </div>
             </div>
             
-            <button class="generate-btn" onclick="generateListing()">📝 Listing Generieren</button>
+            <button class="generate-btn" onclick="generateMerchListing()">📝 Listing-Prompt generieren</button>
             
-            <div class="result" id="listingResult">
-                <h3>✅ Dein fertiges Listing</h3>
+            <div class="result" id="merchResult" style="display: none;">
+                <h3>✅ Generierter ChatGPT-Prompt</h3>
+                <div class="prompt-output" id="merchPromptOutput"></div>
+                <button class="copy-btn" onclick="copyMerchPrompt()">📋 Prompt kopieren</button>
+            </div>
+            
+            <div class="checker-section" id="charCounterSection" style="display: none;">
+                <h3>📊 Zeichenzähler für generierten Text</h3>
+                <p style="color: #888; font-size: 12px; margin-bottom: 15px;">Füge den generierten Text ein — Live-Zählung mit Warnung bei Überschreitung</p>
                 
-                <div class="checker-section">
-                    <h4>📝 Titel</h4>
-                    <div class="listing-output" id="listingOutputTitle"></div>
-                    <button class="copy-btn" onclick="copyListingTitle()">📋 Titel kopieren</button>
-                </div>
-                
-                <div class="checker-section">
-                    <h4>🏷️ Tags</h4>
-                    <div class="listing-output" id="listingOutputTags"></div>
-                    <button class="copy-btn" onclick="copyListingTags()">📋 Tags kopieren</button>
-                </div>
-                
-                <div class="checker-section">
-                    <h4>📝 Beschreibung</h4>
-                    <div class="listing-output" id="listingOutputDesc"></div>
-                    <button class="copy-btn" onclick="copyListingDesc()">📋 Beschreibung kopieren</button>
-                </div>
-                
-                <div class="checker-section">
-                    <h4>⚖️ Rechtliche Prüfung</h4>
-                    <ul id="listingLegalList"></ul>
+                <div class="form-grid">
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>📝 Titel <span style="color: #667eea;">(max. 60 Zeichen)</span></label>
+                        <input type="text" id="counterTitle" oninput="updateCounters()" placeholder="Hier Titel einfügen...">
+                        <div class="char-counter" id="counterTitleDisplay">0 / 60 Zeichen</div>
+                    </div>
+                    
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>📌 Bullet 1 <span style="color: #667eea;">(max. 256 Zeichen)</span></label>
+                        <textarea id="counterBullet1" rows="2" oninput="updateCounters()" placeholder="Hier Bullet 1 einfügen..."></textarea>
+                        <div class="char-counter" id="counterBullet1Display">0 / 256 Zeichen</div>
+                    </div>
+                    
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>📌 Bullet 2 <span style="color: #667eea;">(max. 256 Zeichen)</span></label>
+                        <textarea id="counterBullet2" rows="2" oninput="updateCounters()" placeholder="Hier Bullet 2 einfügen..."></textarea>
+                        <div class="char-counter" id="counterBullet2Display">0 / 256 Zeichen</div>
+                    </div>
+                    
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>📝 Section 3 / Beschreibung <span style="color: #4ade80;">(min. 35 Zeichen)</span></label>
+                        <textarea id="counterSection3" rows="3" oninput="updateCounters()" placeholder="Hier Beschreibung einfügen..."></textarea>
+                        <div class="char-counter" id="counterSection3Display">0 / 2000 Zeichen (min. 35)</div>
+                    </div>
+                    
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>🏷️ Brand <span style="color: #4ade80;">(min. 35 Zeichen)</span></label>
+                        <textarea id="counterBrand" rows="2" oninput="updateCounters()" placeholder="Hier Brand-Text einfügen..."></textarea>
+                        <div class="char-counter" id="counterBrandDisplay">0 / 500 Zeichen (min. 35)</div>
+                    </div>
                 </div>
             </div>
             
@@ -964,183 +933,17 @@
         let currentPromptType = 'design';
         
         // Mapping: Motiv-Value (Schlüsselwort) → Listing-Thema Value
-        const MOTIF_TO_THEME = {
-            'soccer': 'soccer football',
-            'football': 'soccer football',
-            'spielfeld': 'soccer football',
-            'stadion': 'soccer football',
-            'fußball': 'soccer football',
-            'fußballschuh': 'soccer football',
-            'basketball': 'sports general',
-            'racing': 'racing motorsport',
-            'simracing': 'racing motorsport',
-            'gaming': 'gaming esports',
-            'controller': 'gaming esports',
-            'game controller': 'gaming esports',
-            'wolf': 'nature outdoors',
-            'löwe': 'nature outdoors',
-            'drache': 'nature outdoors',
-            'wald': 'nature outdoors',
-            'outdoor': 'nature outdoors',
-            'mond': 'nature outdoors',
-            'sonne': 'nature outdoors',
-            'schmetterling': 'nature outdoors',
-            'pilz': 'nature outdoors',
-            'eule': 'nature outdoors',
-            'fuchs': 'nature outdoors',
-            'delfin': 'nature outdoors',
-            'biene': 'nature outdoors',
-            'kaffee': 'sports general',
-            'bier': 'sports general',
-            'sushi': 'sports general',
-            'pizza': 'sports general',
-            'taco': 'sports general',
-            'burger': 'sports general',
-            'donut': 'sports general',
-            'eis': 'sports general',
-            'wassermelone': 'sports general',
-            'avocado': 'sports general',
-            'christmas': 'sports general',
-            'weihnacht': 'sports general',
-            'rentier': 'sports general',
-            'schneeflocke': 'sports general',
-            'pumpkin': 'sports general',
-            'halloween': 'sports general',
-            'kürbis': 'sports general',
-            'ghost': 'sports general',
-            'skull': 'gaming esports',
-            'heart': 'sports general',
-            'valentin': 'sports general',
-            'cake': 'sports general',
-            'geburtstag': 'sports general',
-            'eagle': 'sports general',
-            'patriotic': 'sports general',
-            'dad': 'sports general',
-            'vatertag': 'sports general',
-            'dog': 'nature outdoors',
-            'hund': 'nature outdoors',
-            'cat': 'nature outdoors',
-            'katze': 'nature outdoors',
-            'robot': 'gaming esports',
-            'spaceship': 'gaming esports',
-            'ufo': 'gaming esports',
-            'alien': 'gaming esports',
-            'pixel': 'gaming esports',
-            'musik': 'music festival',
-            'gitarre': 'music festival',
-            'festival': 'music festival',
-            'reise': 'travel adventure',
-            'abenteuer': 'travel adventure',
-            'travel': 'travel adventure',
-            'adventure': 'travel adventure',
-        };
+
         
         // Mapping: Design-Stil-Name → Listing-Stil Value
-        const STYLE_TO_LISTING = {
-            '3d metallic': '3d metallic',
-            '3d': '3d metallic',
-            'flat vector': 'modern minimalist',
-            'vector': 'modern minimalist',
-            'minimalist': 'modern minimalist',
-            'retro vintage': 'vintage retro',
-            'retro': 'vintage retro',
-            'vintage': 'vintage retro',
-            'streetwear': 'grunge streetwear',
-            'graffiti': 'grunge streetwear',
-            'grunge': 'grunge streetwear',
-            'watercolor': 'watercolor artistic',
-            'watercolor art': 'watercolor artistic',
-            'geometric': 'geometric abstract',
-            'abstract': 'geometric abstract',
-            'line art': 'modern minimalist',
-            'neon': 'grunge streetwear',
-            'cyberpunk': 'grunge streetwear',
-            'sketch': 'vintage retro',
-            'hand sketch': 'vintage retro',
-            'pop art': 'modern minimalist',
-            'anime': 'grunge streetwear',
-            'manga': 'grunge streetwear',
-            'pixel art': 'grunge streetwear',
-            '8-bit': 'grunge streetwear',
-            'art deco': 'vintage retro',
-            'steampunk': 'vintage retro',
-            'botanical': 'watercolor artistic',
-            'floral': 'watercolor artistic',
-            'gothic': 'vintage retro',
-            'medieval': 'vintage retro',
-            'memphis': 'geometric abstract',
-            'paper cutout': '3d metallic',
-            'chalkboard': 'vintage retro',
-            'double exposure': 'watercolor artistic',
-        };
-        
-        function syncDesignToListing() {
-            const subjectEl = document.getElementById('subject');
-            const styleEl = document.getElementById('style');
-            const mainKeywordEl = document.getElementById('mainKeyword');
-            
-            const listingTitle = document.getElementById('listingTitle');
-            const listingTheme = document.getElementById('listingTheme');
-            const listingStyle = document.getElementById('listingStyle');
-            const listingKeywords = document.getElementById('listingKeywords');
-            
-            const keyword = mainKeywordEl ? mainKeywordEl.value.trim() : '';
-            
-            // 1. THEMA: Aus Motiv-Value ableiten
-            if (subjectEl && listingTheme) {
-                const subjectValue = subjectEl.value.toLowerCase();
-                let themeValue = 'sports general'; // Default
-                
-                // Suche nach Keyword im Motiv-Value
-                for (const [motifKeyword, theme] of Object.entries(MOTIF_TO_THEME)) {
-                    if (subjectValue.includes(motifKeyword)) {
-                        themeValue = theme;
-                        break;
-                    }
-                }
-                
-                listingTheme.value = themeValue;
-                console.log('Thema Sync:', subjectValue, '→', themeValue);
-            }
-            
-            // 2. STIL: Aus Design-Stil-Text ableiten
-            if (styleEl && listingStyle) {
-                const styleName = styleEl.options[styleEl.selectedIndex]?.text || '';
-                const styleNameLower = styleName.toLowerCase();
-                let styleValue = 'vintage retro'; // Default
-                
-                // Suche nach Keyword im Stil-Namen
-                for (const [styleKeyword, listingStyleValue] of Object.entries(STYLE_TO_LISTING)) {
-                    if (styleNameLower.includes(styleKeyword)) {
-                        styleValue = listingStyleValue;
-                        break;
-                    }
-                }
-                
-                listingStyle.value = styleValue;
-                console.log('Stil Sync:', styleName, '→', styleValue);
-            }
-            
-            // 3. TITEL: Hauptkeyword
-            if (keyword && listingTitle) {
-                listingTitle.value = keyword;
-                console.log('Titel Sync:', keyword);
-            }
-            
-            // 4. KEYWORDS: Amazon-konform (nur wenn leer)
-            if (keyword && listingKeywords && !listingKeywords.value) {
-                const base = keyword.toLowerCase();
-                const kws = [
-                    base, base + ' design', base + ' graphic', 
-                    base + ' style', base + ' themed',
-                    'custom ' + base, 'unique ' + base
-                ].join(', ');
-                listingKeywords.value = kws;
-            }
-        }
+
         
         function syncKeywordToListing() {
-            syncDesignToListing();
+            const tab1Keyword = document.getElementById('mainKeyword');
+            const merchKeyword = document.getElementById('merchMainKeyword');
+            if (tab1Keyword && merchKeyword && tab1Keyword.value && !merchKeyword.value) {
+                merchKeyword.value = tab1Keyword.value;
+            }
         }
         
         function togglePromptType(type) {
@@ -1569,138 +1372,107 @@
         }
         
     </script>
-    <script>
-        // ===================== TAB SWITCHING =====================
+        <script>
         function switchTab(tab) {
-            // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            // Remove active class from all buttons
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            
-            // Show selected tab
             document.getElementById('tab-content-' + tab).classList.add('active');
             document.getElementById('tab-' + tab).classList.add('active');
         }
         
-        // ===================== LISTING GENERATOR =====================
-        
-        // Char counters
-        document.getElementById('listingTitle')?.addEventListener('input', function() {
-            const len = this.value.length;
-            const counter = document.getElementById('titleCounter');
-            counter.textContent = len + ' / 140 Zeichen';
-            counter.className = 'char-counter ' + (len > 140 ? 'error' : len >= 40 ? 'ok' : 'warning');
-        });
-        
-        document.getElementById('listingDescription')?.addEventListener('input', function() {
-            const len = this.value.length;
-            const counter = document.getElementById('descCounter');
-            counter.textContent = len + ' / 5000 Zeichen';
-            counter.className = 'char-counter ' + (len > 5000 ? 'error' : len >= 200 ? 'ok' : 'warning');
-        });
-        
-        document.getElementById('listingKeywords')?.addEventListener('input', function() {
-            const len = this.value.length;
-            const counter = document.getElementById('keywordsCounter');
-            counter.textContent = len + ' / 500 Zeichen';
-            counter.className = 'char-counter ' + (len > 500 ? 'error' : len >= 100 ? 'ok' : 'warning');
-        });
-        
-        function generateListing() {
-            const title = document.getElementById('listingTitle').value.trim();
-            const style = document.getElementById('listingStyle').value;
-            const theme = document.getElementById('listingTheme').value;
-            const product = document.getElementById('listingProduct').value;
-            const audience = document.getElementById('listingAudience').value;
-            const keywordsInput = document.getElementById('listingKeywords').value.trim();
-            const description = document.getElementById('listingDescription').value.trim();
-            
-            // Get main keyword from Design Tab if available
-            const mainKeyword = document.getElementById('mainKeyword')?.value.trim();
-            
-            // Generate optimized title
-            let finalTitle = title || (mainKeyword ? `${mainKeyword} - ${style.charAt(0).toUpperCase() + style.slice(1)} ${theme} ${product.charAt(0).toUpperCase() + product.slice(1)}` : `${style.charAt(0).toUpperCase() + style.slice(1)} ${theme} ${product.charAt(0).toUpperCase() + product.slice(1)}`);
-            if (finalTitle.length > 140) finalTitle = finalTitle.substring(0, 140);
-            
-            // Generate tags
-            let tags = [];
-            if (keywordsInput) {
-                tags = keywordsInput.split(',').map(k => k.trim()).filter(k => k);
+        const MERCH_TEXTS = {
+            de: {
+                role: 'Du bist ein Amazon Merch Experte für den deutschen Markt.',
+                rules: [
+                    'Titel: Maximal 60 Zeichen, Hauptkeyword muss in den ersten 3 Wörtern stehen',
+                    'Verwende KEINE der folgenden Wörter: "T-Shirt", "Shirt", "Apparel", "Clothing", "Kleidung", "Geschenk", "Gift"',
+                    'Stattdessen verwende kreative Synonyme wie: "Top", "Piece", "Wear", "Outfit", "Style", "Design"',
+                    'Bullet 1: Maximal 256 Zeichen, zweitwichtigstes Keyword vorne',
+                    'Bullet 2: Maximal 256 Zeichen, drittes Keyword vorne, erwähne dass es perfekt für Enthusiasten ist',
+                    'Section 3 / Beschreibung: Mindestens 35 Zeichen, beschreibe das Design stilvoll',
+                    'Brand: Mindestens 35 Zeichen, ohne Wiederholung von Keywords aus anderen Feldern',
+                    'Keyword-Strategie: Jedes Feld nutzt ANDERE Keywords — keine Wiederholungen!',
+                    'Wichtig: Alle Begriffe müssen auf Trademark-Konflikte geprüft werden'
+                ],
+                outputFormat: 'Ausgabe als strukturierte Liste:\n1. TITEL\n2. BULLET 1\n3. BULLET 2\n4. SECTION 3\n5. BRAND',
+                language: 'Deutsch'
+            },
+            us: {
+                role: 'You are an Amazon Merch expert for the US market.',
+                rules: [
+                    'Title: Maximum 60 characters, main keyword MUST be in the first 3 words',
+                    'DO NOT use any of these words: "T-Shirt", "Shirt", "Apparel", "Clothing", "Gift", "Present"',
+                    'Instead use creative synonyms like: "Top", "Piece", "Wear", "Outfit", "Style", "Design", "Tee"',
+                    'Bullet 1: Maximum 256 characters, second most important keyword first',
+                    'Bullet 2: Maximum 256 characters, third keyword first, mention it\'s perfect for enthusiasts',
+                    'Section 3 / Description: Minimum 35 characters, describe the design stylishly',
+                    'Brand: Minimum 35 characters, no repetition of keywords from other fields',
+                    'Keyword strategy: Each field uses DIFFERENT keywords — no repetitions!',
+                    'Important: All terms must be checked for trademark conflicts'
+                ],
+                outputFormat: 'Output as structured list:\n1. TITLE\n2. BULLET 1\n3. BULLET 2\n4. SECTION 3\n5. BRAND',
+                language: 'English'
             }
-            // Add main keyword as first tag if available
-            if (mainKeyword && !tags.includes(mainKeyword)) {
-                tags.unshift(mainKeyword);
+        };
+        
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            const img = document.getElementById('previewImg');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) { img.src = e.target.result; preview.style.display = 'block'; };
+                reader.readAsDataURL(input.files[0]);
             }
-            // Add default tags based on selections
-            const defaultTags = [style, theme, product, audience, 'print on demand', 'graphic tee', 'unique design'];
-            tags = [...new Set([...tags, ...defaultTags])].slice(0, 13); // Max 13 tags for Etsy
-            
-            // Generate description
-            let finalDesc = description || generateAutoDescription(style, theme, product, audience, mainKeyword);
-            
-            // Display
-            document.getElementById('listingOutputTitle').textContent = finalTitle;
-            document.getElementById('listingOutputTags').textContent = tags.join(', ');
-            document.getElementById('listingOutputDesc').textContent = finalDesc;
-            document.getElementById('listingResult').classList.add('active');
-            
-            // Legal check
-            const legalList = document.getElementById('listingLegalList');
-            legalList.innerHTML = '';
-            const checks = [
-                { text: 'Keine Markenbegriffe wie "FIFA", "NFL", "Nike" im Titel', safe: !finalTitle.toLowerCase().match(/fifa|nfl|nike|adidas|superbowl|olympics/) },
-                { text: 'Generische Keywords verwendet', safe: tags.length >= 5 },
-                { text: 'Eigene Beschreibung (kein Copy-Paste)', safe: finalDesc.length > 100 },
-                { text: 'Sichere Alternativen: "Global Tournament" statt "World Cup"', safe: !finalTitle.toLowerCase().includes('world cup') },
-                { text: mainKeyword ? `Hauptkeyword "${mainKeyword}" integriert` : 'Kein Hauptkeyword übernommen', safe: !!mainKeyword }
-            ];
-            checks.forEach(check => {
-                const li = document.createElement('li');
-                li.innerHTML = (check.safe ? '✅ ' : '⚠️ ') + check.text;
-                li.style.color = check.safe ? '#4caf50' : '#ffc107';
-                legalList.appendChild(li);
-            });
-            
-            document.getElementById('listingResult').scrollIntoView({ behavior: 'smooth' });
         }
         
-        function generateAutoDescription(style, theme, product, audience, mainKeyword) {
-            const keywordIntro = mainKeyword ? `Our "${mainKeyword}" design ` : 'This unique ';
-            return `${keywordIntro}brings together ${style} artistry with ${theme} inspiration.
-
-Perfect for ${audience} who appreciate bold, eye-catching graphics. This ${product} features a high-quality print that stays vibrant wash after wash.
-
-✨ Features:
-• Premium quality print
-• Soft, comfortable fabric
-• ${style.charAt(0).toUpperCase() + style.slice(1)} design aesthetic
-• ${mainKeyword || theme} themed artwork
-• Perfect for everyday wear or special occasions
-• Great gift idea for ${theme} enthusiasts
-
-🎨 Design:
-Our artwork is created with attention to detail, featuring clean lines and vibrant colors that pop. Each piece is printed on demand, ensuring minimal environmental impact.
-
-📦 Shipping:
-Printed and shipped from our trusted partners. Please allow 3-7 business days for processing.
-
-⚠️ Legal:
-This is an original design. All artwork is created independently and does not infringe on any trademarks or copyrights.`;
+        function generateMerchListing() {
+            const keyword = document.getElementById('merchMainKeyword').value.trim();
+            const extraKeywords = document.getElementById('merchExtraKeywords').value.trim();
+            const market = document.getElementById('merchMarket').value;
+            if (!keyword) { alert(market === 'de' ? 'Bitte gib ein Hauptkeyword ein!' : 'Please enter a main keyword!'); return; }
+            const texts = MERCH_TEXTS[market];
+            let prompt = texts.role + '\n\n';
+            prompt += 'HAUPTKEYWORD: "' + keyword + '"\n';
+            if (extraKeywords) { prompt += 'ZUSÄTZLICHE KEYWORDS: ' + extraKeywords + '\n'; }
+            prompt += '\n' + texts.language.toUpperCase() + ' MARKT\n\n';
+            prompt += 'REGELN:\n';
+            for (let i = 0; i < texts.rules.length; i++) { prompt += (i + 1) + '. ' + texts.rules[i] + '\n'; }
+            prompt += '\n' + texts.outputFormat + '\n\n';
+            prompt += 'Generiere nun das vollständige Listing basierend auf dem Hauptkeyword "' + keyword + '".';
+            document.getElementById('merchPromptOutput').textContent = prompt;
+            document.getElementById('merchResult').style.display = 'block';
+            document.getElementById('merchResult').classList.add('active');
+            document.getElementById('charCounterSection').style.display = 'block';
+            document.getElementById('merchResult').scrollIntoView({ behavior: 'smooth' });
         }
         
-        function copyListingTitle() {
-            const text = document.getElementById('listingOutputTitle').textContent;
-            navigator.clipboard.writeText(text).then(() => alert('✅ Titel kopiert!'));
+        function copyMerchPrompt() {
+            const text = document.getElementById('merchPromptOutput').textContent;
+            navigator.clipboard.writeText(text).then(() => { alert('✅ Prompt kopiert! Füge ihn in ChatGPT ein.'); });
         }
         
-        function copyListingTags() {
-            const text = document.getElementById('listingOutputTags').textContent;
-            navigator.clipboard.writeText(text).then(() => alert('✅ Tags kopiert!'));
+        function updateCounters() {
+            const title = document.getElementById('counterTitle');
+            const titleDisplay = document.getElementById('counterTitleDisplay');
+            if (title && titleDisplay) { const len = title.value.length; titleDisplay.textContent = len + ' / 60 Zeichen'; titleDisplay.className = 'char-counter' + (len > 60 ? ' error' : ''); }
+            const bullet1 = document.getElementById('counterBullet1');
+            const bullet1Display = document.getElementById('counterBullet1Display');
+            if (bullet1 && bullet1Display) { const len = bullet1.value.length; bullet1Display.textContent = len + ' / 256 Zeichen'; bullet1Display.className = 'char-counter' + (len > 256 ? ' error' : ''); }
+            const bullet2 = document.getElementById('counterBullet2');
+            const bullet2Display = document.getElementById('counterBullet2Display');
+            if (bullet2 && bullet2Display) { const len = bullet2.value.length; bullet2Display.textContent = len + ' / 256 Zeichen'; bullet2Display.className = 'char-counter' + (len > 256 ? ' error' : ''); }
+            const section3 = document.getElementById('counterSection3');
+            const section3Display = document.getElementById('counterSection3Display');
+            if (section3 && section3Display) { const len = section3.value.length; section3Display.textContent = len + ' / 2000 Zeichen (min. 35)'; section3Display.className = 'char-counter' + (len >= 35 ? ' ok' : ' warning'); }
+            const brand = document.getElementById('counterBrand');
+            const brandDisplay = document.getElementById('counterBrandDisplay');
+            if (brand && brandDisplay) { const len = brand.value.length; brandDisplay.textContent = len + ' / 500 Zeichen (min. 35)'; brandDisplay.className = 'char-counter' + (len >= 35 ? ' ok' : ' warning'); }
         }
         
-        function copyListingDesc() {
-            const text = document.getElementById('listingOutputDesc').textContent;
-            navigator.clipboard.writeText(text).then(() => alert('✅ Beschreibung kopiert!'));
+        function updateExtraKeywordsCounter() {
+            const input = document.getElementById('merchExtraKeywords');
+            const counter = document.getElementById('extraKeywordsCounter');
+            if (input && counter) { const len = input.value.length; counter.textContent = len + ' / 500 Zeichen'; counter.className = 'char-counter' + (len > 500 ? ' error' : ''); }
         }
     </script>
 </body>
