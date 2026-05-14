@@ -966,38 +966,60 @@
             const keywordEl = document.getElementById('mainKeyword');
             const subjectEl = document.getElementById('subject');
             const styleEl = document.getElementById('style');
+            const colorsEl = document.getElementById('colors');
+            const backgroundEl = document.getElementById('background');
+            
             const listingTitle = document.getElementById('listingTitle');
             const listingTheme = document.getElementById('listingTheme');
             const listingStyle = document.getElementById('listingStyle');
+            const listingProduct = document.getElementById('listingProduct');
+            const listingKeywords = document.getElementById('listingKeywords');
             
             if (!keywordEl) return;
             
             const keyword = keywordEl.value.trim();
-            const subject = subjectEl ? subjectEl.options[subjectEl.selectedIndex]?.text : '';
-            const style = styleEl ? styleEl.options[styleEl.selectedIndex]?.text : '';
             
-            console.log('Syncing:', { keyword, subject, style });
+            // Helper: Check if field is effectively empty
+            function isEmpty(val) {
+                return !val || val === '' || val === 'vintage' || val === 'retro';
+            }
             
-            // Hauptkeyword ins Listing-Titel (nur wenn leer)
-            if (keyword && listingTitle && !listingTitle.value) {
+            // 1. HAUPTKEYWORD → Titel
+            if (keyword && listingTitle && isEmpty(listingTitle.value)) {
                 listingTitle.value = keyword;
             }
             
-            // Thema aus dem Motiv übernehmen (nur wenn leer)
-            if (subject && listingTheme && !listingTheme.value) {
-                // Extrahiere Kategorie aus dem Motiv-Text
-                const themeMatch = subject.match(/([\w\s]+)\s*\//);
-                if (themeMatch) {
-                    listingTheme.value = themeMatch[1].trim();
-                } else {
-                    listingTheme.value = subject.split(' ')[0];
+            // 2. MOTIV → Thema
+            if (subjectEl && listingTheme) {
+                const subjectText = subjectEl.options[subjectEl.selectedIndex]?.text || '';
+                const subjectVal = subjectEl.value || '';
+                if (isEmpty(listingTheme.value)) {
+                    // Nimm den angezeigten Namen oder extrahiere aus dem Value
+                    const theme = subjectText.split('/')[0]?.trim() || 
+                                  subjectVal.split(' ').slice(0,2).join(' ');
+                    listingTheme.value = theme;
                 }
             }
             
-            // Stil übernehmen (nur wenn leer)
-            if (style && listingStyle && !listingStyle.value) {
-                listingStyle.value = style.split(' ')[0].toLowerCase();
+            // 3. DESIGN-STIL → Stil
+            if (styleEl && listingStyle && isEmpty(listingStyle.value)) {
+                const styleVal = styleEl.value || '';
+                const styleName = styleVal.split(' ')[0];
+                listingStyle.value = styleName;
             }
+            
+            // 4. KEYWORDS aus Hauptkeyword generieren
+            if (keyword && listingKeywords && isEmpty(listingKeywords.value)) {
+                const keywords = [
+                    keyword,
+                    keyword + ' shirt',
+                    keyword + ' gift',
+                    keyword + ' apparel'
+                ].join(', ');
+                listingKeywords.value = keywords;
+            }
+            
+            console.log('Synced:', { keyword });
         }
         function togglePromptType(type) {
             currentPromptType = type;
