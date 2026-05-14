@@ -966,58 +966,68 @@
             const keywordEl = document.getElementById('mainKeyword');
             const subjectEl = document.getElementById('subject');
             const styleEl = document.getElementById('style');
-            const colorsEl = document.getElementById('colors');
-            const backgroundEl = document.getElementById('background');
             
             const listingTitle = document.getElementById('listingTitle');
             const listingTheme = document.getElementById('listingTheme');
             const listingStyle = document.getElementById('listingStyle');
-            const listingProduct = document.getElementById('listingProduct');
             const listingKeywords = document.getElementById('listingKeywords');
             
-            if (!keywordEl) return;
+            if (!keywordEl) {
+                console.log('mainKeyword nicht gefunden');
+                return;
+            }
             
             const keyword = keywordEl.value.trim();
+            console.log('Keyword:', keyword, 'SubjectEl:', !!subjectEl, 'ThemeEl:', !!listingTheme, 'StyleEl:', !!listingStyle);
             
-            // Helper: Check if field is effectively empty
-            function isEmpty(val) {
-                return !val || val === '' || val === 'vintage' || val === 'retro';
-            }
-            
-            // 1. HAUPTKEYWORD → Titel
-            if (keyword && listingTitle && isEmpty(listingTitle.value)) {
+            // 1. TITEL
+            if (keyword && listingTitle && !listingTitle.value) {
                 listingTitle.value = keyword;
+                console.log('Titel gesetzt:', keyword);
             }
             
-            // 2. MOTIV → Thema
+            // 2. THEMA (aus Motiv-Text vor dem /)
             if (subjectEl && listingTheme) {
-                const subjectText = subjectEl.options[subjectEl.selectedIndex]?.text || '';
-                const subjectVal = subjectEl.value || '';
-                if (isEmpty(listingTheme.value)) {
-                    // Nimm den angezeigten Namen oder extrahiere aus dem Value
-                    const theme = subjectText.split('/')[0]?.trim() || 
-                                  subjectVal.split(' ').slice(0,2).join(' ');
-                    listingTheme.value = theme;
+                const selectedOption = subjectEl.options[subjectEl.selectedIndex];
+                const subjectText = selectedOption ? selectedOption.text : '';
+                console.log('Motiv-Text:', subjectText);
+                
+                if (!listingTheme.value) {
+                    // Nimm alles vor dem "/"
+                    const theme = subjectText.split('/')[0].trim();
+                    if (theme) {
+                        listingTheme.value = theme;
+                        console.log('Thema gesetzt:', theme);
+                    }
                 }
             }
             
-            // 3. DESIGN-STIL → Stil
-            if (styleEl && listingStyle && isEmpty(listingStyle.value)) {
-                const styleVal = styleEl.value || '';
-                const styleName = styleVal.split(' ')[0];
-                listingStyle.value = styleName;
+            // 3. STIL (erstes Wort aus style value)
+            if (styleEl && listingStyle) {
+                const styleValue = styleEl.value || '';
+                console.log('Style-Value:', styleValue);
+                
+                if (!listingStyle.value) {
+                    const styleName = styleValue.split(',')[0].trim();
+                    if (styleName) {
+                        listingStyle.value = styleName;
+                        console.log('Stil gesetzt:', styleName);
+                    }
+                }
             }
             
-            // 4. KEYWORDS aus Hauptkeyword generieren
-            if (keyword && listingKeywords && isEmpty(listingKeywords.value)) {
-                const keywords = [
-                    keyword,
-                    keyword + ' shirt',
-                    keyword + ' gift',
-                    keyword + ' apparel'
+            // 4. KEYWORDS (Amazon-konform)
+            if (keyword && listingKeywords && !listingKeywords.value) {
+                const base = keyword.toLowerCase();
+                const kws = [
+                    base, base + ' design', base + ' graphic', 
+                    base + ' style', base + ' themed',
+                    'custom ' + base, 'unique ' + base
                 ].join(', ');
-                listingKeywords.value = keywords;
+                listingKeywords.value = kws;
+                console.log('Keywords gesetzt');
             }
+        }
             
             console.log('Synced:', { keyword });
         }
