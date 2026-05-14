@@ -560,6 +560,83 @@
                 <p style="color: #888; font-size: 12px; margin-top: 8px;">💡 Wird automatisch an den Listing Generator übertragen</p>
             </div>
             
+            <!-- PROMPT MODUS AUSWAHL -->
+            <div class="form-group" style="background: rgba(45,55,72,0.5); border-left: 4px solid #f093fb; margin: 20px 0; padding: 15px; border-radius: 8px;">
+                <label style="color: #f093fb; font-weight: 600;">📋 Was soll generiert werden?</label>
+                <div class="prompt-type-selector" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                    <label class="prompt-type-option" style="flex: 1; min-width: 150px;">
+                        <input type="radio" name="promptType" value="design" checked onchange="togglePromptType('design')" style="display: none;">
+                        <span class="prompt-type-btn active" data-type="design" style="display: block; padding: 12px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: 2px solid #667eea; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; color: #fff;">
+                            🎨 <strong>Nur Design</strong>
+                            <small style="display: block; color: #ccc; font-size: 11px; margin-top: 4px;">Bild-Illustration</small>
+                        </span>
+                    </label>
+                    <label class="prompt-type-option" style="flex: 1; min-width: 150px;">
+                        <input type="radio" name="promptType" value="text" onchange="togglePromptType('text')" style="display: none;">
+                        <span class="prompt-type-btn" data-type="text" style="display: block; padding: 12px 16px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; color: #fff;">
+                            ✍️ <strong>Nur Text</strong>
+                            <small style="display: block; color: #888; font-size: 11px; margin-top: 4px;">Typography/Slogan</small>
+                        </span>
+                    </label>
+                    <label class="prompt-type-option" style="flex: 1; min-width: 150px;">
+                        <input type="radio" name="promptType" value="combined" onchange="togglePromptType('combined')" style="display: none;">
+                        <span class="prompt-type-btn" data-type="combined" style="display: block; padding: 12px 16px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; color: #fff;">
+                            🎨✍️ <strong>Design + Text</strong>
+                            <small style="display: block; color: #888; font-size: 11px; margin-top: 4px;">Kombiniert</small>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- TEXT OPTIONS PANEL (nur bei Text / Design+Text) -->
+            <div id="textOptionsPanel" style="display: none; margin: 20px 0; padding: 20px; background: linear-gradient(135deg, rgba(240,147,251,0.1) 0%, rgba(245,87,108,0.1) 100%); border-radius: 12px; border: 1px solid rgba(240,147,251,0.3);">
+                <h4 style="color: #f093fb; margin-bottom: 15px;">✍️ Text-Optionen</h4>
+                <div class="form-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div class="form-group">
+                        <label>Text-Inhalt</label>
+                        <input type="text" id="customText" placeholder="z.B. 'Born to Run' oder leer = auto" style="width: 100%; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #fff;">
+                    </div>
+                    <div class="form-group">
+                        <label>Schrift-Stil</label>
+                        <select id="textStyleCombo">
+                            <option value="bold varsity block letters, athletic sports font, college style">Varsity / College</option>
+                            <option value="retro script font, flowing cursive, 1950s diner style">Retro Script</option>
+                            <option value="grunge distressed typewriter font, rough edges, worn">Grunge / Distressed</option>
+                            <option value="3D isometric, dimensional depth, extruded letters">3D Isometric</option>
+                            <option value="handwritten brush lettering, organic ink strokes">Handwritten Brush</option>
+                            <option value="minimalist thin sans-serif, elegant clean">Minimalist Thin</option>
+                            <option value="geometric constructed, angular lines, futuristic">Geometric</option>
+                            <option value="neon glow, cyberpunk, electric sign effect">Neon Glow</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Text-Effekte</label>
+                        <select id="textEffectsCombo">
+                            <option value="">Keine</option>
+                            <option value="with subtle drop shadow, dimensional depth">Schatten</option>
+                            <option value="with outline stroke, bordered letters">Outline</option>
+                            <option value="with inner glow and gradient fill">Inner Glow</option>
+                            <option value="with distressed texture overlay, worn print">Texture</option>
+                            <option value="with 3D extrusion, deep perspective">3D Extrusion</option>
+                            <option value="with neon glow effect, electric aura">Neon Glow</option>
+                            <option value="with metallic chrome finish, reflections">Chrome</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Text-Position</label>
+                        <select id="textPositionCombo">
+                            <option value="centered prominently">Zentriert</option>
+                            <option value="as upper arc banner">Oben gebogen</option>
+                            <option value="as lower arc banner">Unten gebogen</option>
+                            <option value="as vertical text on left side">Vertikal links</option>
+                            <option value="as vertical text on right side">Vertikal rechts</option>
+                            <option value="scattered across">Verteilt</option>
+                            <option value="integrated with the main illustration">Im Motiv</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
             <div class="form-group">
                 <label>🎨 Motiv-Kategorie wählen</label>
                 
@@ -858,137 +935,6 @@
             
         </div><!-- Ende tab-content-listing -->
         
-        <!-- TEXT/TYPOGRAPHY GENERATOR SECTION -->
-        <hr style="border-color: rgba(255,255,255,0.1); margin: 40px 0;">
-        
-        <h2 style="text-align: center; margin-bottom: 10px;">✍️ Text & Typography Generator</h2>
-        <p class="subtitle">Urheberrechtssichere Text-Designs für Merch</p>
-        
-        <div class="warning-box">
-            <h3>⚠️ Text-Rechtliche Hinweise</h3>
-            <ul>
-                <li class="safe">✅ Generische Begriffe: "Champion", "Game On", "Born To Win", "Stay Wild"</li>
-                <li class="safe">✅ Eigene erfundene Slogans und Wortspiele</li>
-                <li class="unsafe">❌ Songtexte, Filmzitate, Buchtitel (urheberrechtlich geschützt)</li>
-                <li class="unsafe">❌ Bekannte Slogans: "Just Do It", "I'm Lovin' It", "Think Different"</li>
-                <li class="warning">⚠️ "Keep Calm and..." ist in der EU geschützt!</li>
-            </ul>
-        </div>
-        
-        <div class="form-grid">
-            <div class="form-group" style="grid-column: 1 / -1;">
-                <label>📝 Dein Text / Slogan</label>
-                <input type="text" id="customText" placeholder="z.B. Born To Ride, Game Over, Stay Wild..." maxlength="40">
-                <small style="color: #888; display: block; margin-top: 5px;">Max. 40 Zeichen — vermeide geschützte Slogans</small>
-            </div>
-            
-            <div class="form-group">
-                <label>🔤 Schrift-Stil</label>
-                <select id="fontStyle">
-                    <option value="bold varsity block letters, athletic sports font, college style">Varsity / College Sport</option>
-                    <option value="retro script font, flowing cursive, 1950s diner style">Retro Script / Kursiv</option>
-                    <option value="grunge distressed bold letters, cracked paint texture, punk rock">Grunge / Punk</option>
-                    <option value="elegant serif font, vintage book title, refined classic">Elegant Serif / Klassisch</option>
-                    <option value="hand drawn brush lettering, casual marker style, organic flow">Brush Lettering / Marker</option>
-                    <option value="outline hollow letters with double stroke, clean modern">Outline / Doppelstrich</option>
-                    <option value="bubble rounded letters, soft cartoon style, playful">Bubble / Cartoon</option>
-                    <option value="stencil cutout letters, military spray paint style, urban">Stencil / Militär</option>
-                    <option value="western cowboy font, wooden plank texture, saloon style">Western / Cowboy</option>
-                    <option value="gothic blackletter font, ornate medieval, heavy metal style">Blackletter / Gothic</option>
-                    <option value="neon tube letters, glowing outline, retro sign style">Neon Sign / Röhre</option>
-                    <option value="3D extruded letters with drop shadow, dimensional depth">3D Extruded</option>
-                    <option value="typewriter monospace font, vintage document style, mechanical">Typewriter / Mono</option>
-                    <option value="art deco geometric letters, 1920s glamour, gold and black">Art Deco / Gatsby</option>
-                    <option value="graffiti wildstyle letters, colorful fill, sharp edges">Graffiti / Wildstyle</option>
-                    <option value="japanese kanji brush style, bold ink strokes, minimal zen">Kanji / Zen Brush</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>🎨 Text-Farbschema</label>
-                <select id="textColors">
-                    <option value="white text on solid black background, maximum contrast">Weiß auf Schwarz</option>
-                    <option value="black text on solid white background, clean minimal">Schwarz auf Weiß</option>
-                    <option value="gradient text fill from orange to red, fiery colors">Feuer-Gradient</option>
-                    <option value="metallic gold text with subtle shimmer effect">Metallic Gold</option>
-                    <option value="metallic silver chrome text with reflections">Chrome / Silber</option>
-                    <option value="neon glow text in electric blue with dark background">Neon Blau</option>
-                    <option value="vintage distressed text in warm brown and cream">Vintage Braun/Creme</option>
-                    <option value="rainbow gradient letters, each letter different color">Regenbogen-Buchstaben</option>
-                    <option value="two-tone split: half black half white letters">Two-Tone Split</option>
-                    <option value="outline text with watercolor fill inside">Outline + Watercolor</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>✨ Text-Effekte</label>
-                <div class="checkbox-group">
-                    <label class="checkbox-item"><input type="checkbox" id="textShadow" value="drop shadow behind letters"><span>Schatten</span></label>
-                    <label class="checkbox-item"><input type="checkbox" id="textOutline" value="thick outline stroke around letters"><span>Dicke Outline</span></label>
-                    <label class="checkbox-item"><input type="checkbox" id="textDistressed" value="distressed cracked texture on letters"><span>Distressed</span></label>
-                    <label class="checkbox-item"><input type="checkbox" id="text3D" value="3D bevel and emboss effect on letters"><span>3D Bevel</span></label>
-                    <label class="checkbox-item"><input type="checkbox" id="textGlow" value="soft outer glow around text"><span>Glow</span></label>
-                    <label class="checkbox-item"><input type="checkbox" id="textSwoosh" value="swoosh underline and accent lines"><span>Swoosh/Unterstrich</span></label>
-                    <label class="checkbox-item"><input type="checkbox" id="textStars" value="star and sparkle accents around text"><span>Sterne um Text</span></label>
-                    <label class="checkbox-item"><input type="checkbox" id="textBanner" value="ribbon banner behind text"><span>Ribbon Banner</span></label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>🖼️ Layout-Variante</label>
-                <select id="textLayout">
-                    <option value="centered single line, large and bold">Single Line — groß & fett</option>
-                    <option value="stacked two lines, top small bottom large">2 Zeilen — oben klein, unten groß</option>
-                    <option value="circular curved text following a circle path">Kreisförmig gebogen</option>
-                    <option value="arch curved text in a rainbow arc">Bogen / Arch</option>
-                    <option value="vertical stacked letters top to bottom">Vertikal gestapelt</option>
-                    <option value="scattered letters with artistic spacing">Zerstreut / Artistisch</option>
-                    <option value="text inside a badge or shield shape">Badge / Schild-Form</option>
-                    <option value="text with frame border around it">Text im Rahmen</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>🎭 Stimmung / Vibe</label>
-                <select id="textVibe">
-                    <option value="powerful motivational, gym workout energy">Motivierend / Gym</option>
-                    <option value="chill relaxed, coffee shop casual">Chill / Casual</option>
-                    <option value="funny humorous, jokester personality">Lustig / Humor</option>
-                    <option value="rebellious edgy, biker attitude">Rebellisch / Biker</option>
-                    <option value="retro nostalgic, vintage throwback">Retro / Nostalgisch</option>
-                    <option value="adventure outdoor, wilderness explorer">Abenteuer / Outdoor</option>
-                    <option value="geek nerd, gaming and tech culture">Geek / Nerd</option>
-                    <option value="loving caring, family and friends">Liebevoll / Familie</option>
-                    <option value="minimal zen, clean and peaceful">Minimal / Zen</option>
-                    <option value="party festive, celebration and fun">Party / Festlich</option>
-                </select>
-            </div>
-        </div>
-        
-        <button class="generate-btn" onclick="generateTextPrompt()" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">✍️ Text-Prompt Generieren</button>
-        
-        <div id="textResult" class="result-box">
-            <h3>✍️ Generierter Text-Prompt</h3>
-            <div class="prompt-output" id="textPromptText"></div>
-            <button class="copy-btn" onclick="copyTextPrompt()">📋 Kopieren</button>
-            <button class="copy-btn" onclick="copyTextForRecraft()" style="background: #5865F2;">💬 Für Recraft kopieren</button>
-            
-            <div class="legal-check">
-                <h4>✅ Text-Rechtliche Prüfung</h4>
-                <ul id="textLegalList"></ul>
-            </div>
-            
-            <div class="tip-box">
-                <h4>💡 Tipps für Text-Designs</h4>
-                <ul>
-                    <li>Kurze Texte (1-3 Wörter) wirken am besten auf Shirts</li>
-                    <li>Große Lesbarkeit = mehr Verkäufe</li>
-                    <li>Teste: Kann man den Text von 2 Metern lesen?</li>
-                    <li>Vermeide zu viele Effekte gleichzeitig (wirkt unruhig)</li>
-                </ul>
-            </div>
-        </div>
-        
         <hr style="border-color: rgba(255,255,255,0.1); margin: 40px 0;">
         
         <footer>
@@ -998,13 +944,38 @@
     
     <script>
         // ===================== KEYWORD SYNC =====================
+        let currentPromptType = 'design';
         function syncKeywordToListing() {
             const keyword = document.getElementById('mainKeyword').value;
-            // Try to update listing title if on listing tab
             const listingTitle = document.getElementById('listingTitle');
             if (listingTitle && !listingTitle.value) {
                 listingTitle.value = keyword;
             }
+        }
+        function togglePromptType(type) {
+            currentPromptType = type;
+            document.querySelectorAll('.prompt-type-btn').forEach(btn => {
+                const isActive = btn.dataset.type === type;
+                btn.classList.toggle('active', isActive);
+                btn.style.background = isActive ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(255,255,255,0.05)';
+                btn.style.borderColor = isActive ? '#667eea' : 'rgba(255,255,255,0.1)';
+            });
+            const p = document.getElementById('textOptionsPanel');
+            if (p) p.style.display = type === 'design' ? 'none' : 'block';
+        }
+        const AUTO_TEXTS = {
+            sport: ['Team Spirit', 'Game On', 'Born To Win', 'Champions', 'Play Hard'],
+            nature: ['Wild & Free', 'Into The Wild', 'Nature Lover', 'Stay Wild', 'Forest Soul'],
+            food: ['Foodie Life', 'Tasty', 'Yummy', 'Delicious', 'Hungry'],
+            seasonal: ['Merry & Bright', 'Spooky Season', 'Summer Vibes', 'Love Is All', 'Party Time'],
+            dark: ['Dark Soul', 'Fearless', 'Rebel Heart', 'No Rules', 'Rise Above', 'Shadow Walker'],
+            geek: ['Level Up', 'Player 1', 'Geek Life', 'Code All Day', 'Game Over', 'Nerd Alert'],
+            life: ['Family First', 'Best Dad', 'Best Mom', 'Living My Best Life', 'Stay True']
+        };
+        function generateAutoText() {
+            const cat = (document.querySelector('.category-tab.active')?.dataset?.cat) || 'life';
+            const texts = AUTO_TEXTS[cat] || AUTO_TEXTS.life;
+            return texts[Math.floor(Math.random() * texts.length)];
         }
         
         // ===================== DESIGN PROMPT =====================
@@ -1018,7 +989,6 @@
             const mood = document.getElementById('mood').value;
             const mainKeyword = document.getElementById('mainKeyword').value;
             
-            // Custom colors override
             if (colors === 'custom' && customColors) {
                 colors = `custom color palette: ${customColors}`;
             }
@@ -1030,39 +1000,9 @@
                 if (el && el.checked) extras.push(el.value);
             });
             
-            // Build prompt
-            let prompt = `Create a ${style} illustration featuring ${subject}`;
-            
-            if (mainKeyword) {
-                prompt += ` with theme/concept of "${mainKeyword}"`;
-            }
-            
-            if (colors && colors !== 'custom') {
-                prompt += `, using ${colors}`;
-            } else if (colors !== 'custom') {
-                prompt += `, ${colors}`;
-            }
-            
-            prompt += `, ${background}`;
-            prompt += `, ${composition}`;
-            prompt += `, ${mood} mood`;
-            
-            if (extras.length > 0) {
-                prompt += `, with ${extras.join(', ')}`;
-            }
-            
-            prompt += `, crisp clean edges, professional quality, suitable for print-on-demand merchandise, high resolution, detailed textures`;
-            
-            // Display
-            document.getElementById('promptText').textContent = prompt;
-            document.querySelector('#result h3').textContent = '🎨 Design Prompt';
-            document.getElementById('result').classList.add('active');
-            
-            // Legal check
-            const legalList = document.getElementById('legalList');
-            legalList.innerHTML = '';
-            
-            const checks = [
+            let prompt = '';
+            let title = '';
+            let legalChecks = [
                 { text: 'Keine Markenlogos oder Wappen enthalten', safe: true },
                 { text: 'Generische Beschreibung statt geschützter Begriffe', safe: true },
                 { text: 'Stilisiert/artistic statt realistischer Markendarstellung', safe: true },
@@ -1071,7 +1011,74 @@
                 { text: 'Prüfe: Nationalflaggen-Farben sind OK, aber kombiniert mit offiziellen Wappen → Risiko', safe: false, warning: true }
             ];
             
-            checks.forEach(check => {
+            if (currentPromptType === 'design') {
+                // === NUR DESIGN ===
+                title = '🎨 Design Prompt';
+                prompt = `Create a ${style} illustration featuring ${subject}`;
+                if (mainKeyword) prompt += ` with theme/concept of "${mainKeyword}"`;
+                if (colors && colors !== 'custom') prompt += `, using ${colors}`;
+                else if (colors !== 'custom') prompt += `, ${colors}`;
+                prompt += `, ${background}`;
+                prompt += `, ${composition}`;
+                prompt += `, ${mood} mood`;
+                if (extras.length > 0) prompt += `, with ${extras.join(', ')}`;
+                prompt += `, crisp clean edges, professional quality, suitable for print-on-demand merchandise, high resolution, detailed textures`;
+                
+            } else {
+                // === TEXT oder COMBINED ===
+                const customText = document.getElementById('customText').value.trim();
+                const textStyle = document.getElementById('textStyleCombo').value;
+                const textEffects = document.getElementById('textEffectsCombo').value;
+                const textPosition = document.getElementById('textPositionCombo').value;
+                const finalText = customText || generateAutoText();
+                
+                if (currentPromptType === 'text') {
+                    // === NUR TEXT ===
+                    title = '✍️ Text/Typography Prompt';
+                    prompt = `Create a typography design featuring the text "${finalText}"`;
+                    prompt += `, using ${textStyle} font`;
+                    prompt += `, ${textPosition}`;
+                    if (colors && colors !== 'custom') prompt += `, using ${colors}`;
+                    prompt += `, ${mood} mood`;
+                    if (textEffects) prompt += `, ${textEffects}`;
+                    prompt += `, professional vector typography, t-shirt design, scalable text, clean edges, print-ready quality`;
+                    
+                    legalChecks.push(
+                        { text: 'Eigenen Text verwendet oder generisch → sicher', safe: true },
+                        { text: 'Prüfe: Bekannte Zitate/Slogans können urheberrechtlich geschützt sein', safe: false, warning: true }
+                    );
+                    
+                } else {
+                    // === DESIGN + TEXT KOMBINIERT ===
+                    title = '🎨✍️ Kombinierter Design + Text Prompt';
+                    prompt = `Create a ${style} illustration featuring ${subject}`;
+                    if (mainKeyword) prompt += ` with theme/concept of "${mainKeyword}"`;
+                    if (colors && colors !== 'custom') prompt += `, using ${colors}`;
+                    else if (colors !== 'custom') prompt += `, ${colors}`;
+                    prompt += `, ${background}`;
+                    prompt += `, ${composition}`;
+                    prompt += `, ${mood} mood`;
+                    if (extras.length > 0) prompt += `, with ${extras.join(', ')}`;
+                    prompt += `, WITH INTEGRATED TYPOGRAPHY: text "${finalText}" using ${textStyle} font, ${textPosition}`;
+                    if (textEffects) prompt += `, ${textEffects}`;
+                    prompt += `, text should complement the illustration, cohesive design, professional print-ready quality`;
+                    
+                    legalChecks.push(
+                        { text: 'Eigenen Text verwendet oder generisch → sicher', safe: true },
+                        { text: 'Prüfe: Bekannte Zitate/Slogans können urheberrechtlich geschützt sein', safe: false, warning: true }
+                    );
+                }
+            }
+            
+            // Display
+            document.getElementById('promptText').textContent = prompt;
+            document.querySelector('#result h3').textContent = title;
+            document.getElementById('result').classList.add('active');
+            
+            // Legal check
+            const legalList = document.getElementById('legalList');
+            legalList.innerHTML = '';
+            legalChecks.forEach(check => {
                 const li = document.createElement('li');
                 if (check.warning) {
                     li.innerHTML = `⚠️ ${check.text}`;
@@ -1083,7 +1090,6 @@
                 legalList.appendChild(li);
             });
             
-            // Scroll to result
             document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
         }
         
@@ -1099,82 +1105,6 @@
             const recraftText = text + ', vector illustration, flat design, clean vector, scalable, t-shirt graphic';
             navigator.clipboard.writeText(recraftText).then(() => {
                 alert('✅ Recraft-optimierter Prompt kopiert!');
-            });
-        }
-        
-        // ===================== TEXT/TYPOGRAPHY GENERATOR =====================
-        
-        function generateTextPrompt() {
-            const customText = document.getElementById('customText').value.trim();
-            const fontStyle = document.getElementById('fontStyle').value;
-            const textColors = document.getElementById('textColors').value;
-            const textLayout = document.getElementById('textLayout').value;
-            const textVibe = document.getElementById('textVibe').value;
-            
-            // Collect text effects
-            const textEffects = [];
-            ['textShadow', 'textOutline', 'textDistressed', 'text3D', 'textGlow', 'textSwoosh', 'textStars', 'textBanner'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el && el.checked) textEffects.push(el.value);
-            });
-            
-            // Build text prompt
-            let prompt = `Typography design for merch print: "${customText || 'YOUR TEXT HERE'}"`;
-            prompt += `, ${fontStyle}`;
-            prompt += `, ${textColors}`;
-            prompt += `, ${textLayout}`;
-            prompt += `, ${textVibe} vibe`;
-            
-            if (textEffects.length > 0) {
-                prompt += `, with ${textEffects.join(', ')}`;
-            }
-            
-            prompt += `, high contrast, print-ready vector, crisp edges, professional typography, suitable for t-shirt printing, 300dpi quality`;
-            
-            // Display
-            document.getElementById('textPromptText').textContent = prompt;
-            document.getElementById('textResult').classList.add('active');
-            
-            // Legal check for text
-            const textLegalList = document.getElementById('textLegalList');
-            textLegalList.innerHTML = '';
-            
-            const textChecks = [
-                { text: 'Keine geschützten Slogans oder Marken enthalten', safe: true },
-                { text: 'Eigener Text oder generische Begriffe verwendet', safe: true },
-                { text: 'Keine Songtexte oder Filmzitate', safe: true },
-                { text: 'Prüfe: "Keep Calm and..." ist in EU geschützt', safe: false, warning: true },
-                { text: 'Prüfe: Bekannte Phrasen wie "Just Do It" sind markenrechtlich geschützt', safe: false, warning: true }
-            ];
-            
-            textChecks.forEach(check => {
-                const li = document.createElement('li');
-                if (check.warning) {
-                    li.innerHTML = `⚠️ ${check.text}`;
-                    li.style.color = '#ffc107';
-                } else {
-                    li.innerHTML = `✅ ${check.text}`;
-                    li.style.color = '#4caf50';
-                }
-                textLegalList.appendChild(li);
-            });
-            
-            // Scroll to result
-            document.getElementById('textResult').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        function copyTextPrompt() {
-            const text = document.getElementById('textPromptText').textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('✅ Text-Prompt kopiert!');
-            });
-        }
-        
-        function copyTextForRecraft() {
-            const text = document.getElementById('textPromptText').textContent;
-            const recraftText = text + ', vector typography, clean text, scalable font, t-shirt graphic';
-            navigator.clipboard.writeText(recraftText).then(() => {
-                alert('✅ Recraft-optimierter Text-Prompt kopiert!');
             });
         }
         
