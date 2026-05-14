@@ -935,10 +935,15 @@
 
         <div id="result" class="result-box">
             <h3>🎨 Generierter Prompt</h3>
-            <div class="prompt-output" id="promptText"></div>
-            <button class="copy-btn" onclick="copyPrompt()">📋 Kopieren</button>
-            <button class="copy-btn" onclick="copyForDiscord()" style="background: #5865F2;">💬 Für Recraft kopieren</button>
-            <button class="save-btn" onclick="openSaveTemplateModal()">⭐ Speichern</button>
+            <div style="position:relative">
+                <textarea id="promptText" style="width:100%;min-height:120px;padding:15px;border-radius:8px;background:rgba(0,0,0,0.5);color:#fff;font-family:'Courier New',monospace;font-size:14px;line-height:1.6;border:1px solid rgba(102,126,234,0.3);resize:vertical;" placeholder="Hier erscheint dein Prompt — du kannst ihn auch manuell bearbeiten..."></textarea>
+                <div id="promptHint" style="color:#888;font-size:11px;margin-top:4px;">💡 Du kannst den Prompt hier direkt bearbeiten bevor du ihn kopierst/speicherst</div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+                <button class="copy-btn" onclick="copyPrompt()">📋 Kopieren</button>
+                <button class="copy-btn" onclick="copyForDiscord()" style="background: #5865F2;">💬 Für Recraft kopieren</button>
+                <button class="save-btn" onclick="openSaveTemplateModal()">⭐ Speichern</button>
+            </div>
 
             <div class="legal-check">
                 <h4>✅ Rechtliche Prüfung</h4>
@@ -1242,7 +1247,7 @@
                 }
 
                 // Display
-                document.getElementById('promptText').textContent = prompt;
+                document.getElementById('promptText').value = prompt;
                 document.querySelector('#result h3').textContent = title;
                 document.getElementById('result').classList.add('active');
 
@@ -1265,20 +1270,20 @@
 
             } catch (e) {
                 console.error('Fehler in generatePrompt:', e);
-                document.getElementById('promptText').textContent = 'Fehler: ' + e.message;
+                document.getElementById('promptText').value = 'Fehler: ' + e.message;
                 document.getElementById('result').classList.add('active');
             }
         }
 
         function copyPrompt() {
-            const text = document.getElementById('promptText').textContent;
+            const text = document.getElementById('promptText').value;
             navigator.clipboard.writeText(text).then(() => {
                 alert('✅ Prompt kopiert!');
             });
         }
 
         function copyForDiscord() {
-            const text = document.getElementById('promptText').textContent;
+            const text = document.getElementById('promptText').value;
             const recraftText = text + ', vector illustration, flat design, clean vector, scalable, t-shirt graphic';
             navigator.clipboard.writeText(recraftText).then(() => {
                 alert('✅ Recraft-optimierter Prompt kopiert!');
@@ -1645,7 +1650,7 @@
         }
 
         function openSaveTemplateModal() {
-            const prompt = document.getElementById('promptText').textContent;
+            const prompt = document.getElementById('promptText').value;
             if (!prompt || prompt.trim() === '') {
                 alert('Bitte zuerst einen Prompt generieren!');
                 return;
@@ -1663,7 +1668,7 @@
             const name = document.getElementById('templateNameInput').value.trim();
             if (!name) { alert('Bitte einen Namen eingeben!'); return; }
             const tags = document.getElementById('templateTagsInput').value.trim();
-            const prompt = document.getElementById('promptText').textContent;
+            const prompt = document.getElementById('promptText').value;
             const templates = getTemplates();
             templates.push({
                 id: Date.now(),
@@ -1699,21 +1704,38 @@
             }
 
             if (matches.length > 0) {
-                // Platzhalter gefunden → Modal mit Inputs
+                // Platzhalter gefunden → Modal mit Inputs öffnen
                 currentTemplateId = id;
                 const container = document.getElementById('placeholderInputs');
                 container.innerHTML = '';
                 container.style.display = 'block';
+                
+                // Header-Text mit Platzhalter-Info
+                const info = document.createElement('p');
+                info.style.cssText = 'color: #888; font-size: 13px; margin-bottom: 15px;';
+                info.textContent = 'Gib die Werte für die Platzhalter ein:';
+                container.appendChild(info);
+                
                 matches.forEach(ph => {
                     const row = document.createElement('div');
                     row.className = 'placeholder-row';
-                    row.innerHTML = '<label>{{' + ph + '}}</label><input type="text" id="ph_' + ph + '" placeholder="Wert für ' + ph + '">';
+                    row.innerHTML = '<label>{{' + ph + '}}</label><input type="text" id="ph_' + ph + '" placeholder="z.B. 1990" value="" autocomplete="off">';
                     container.appendChild(row);
                 });
-                document.getElementById('loadTemplateModal').classList.add('active');
+                
+                // Modal sichtbar machen
+                const modal = document.getElementById('loadTemplateModal');
+                modal.classList.add('active');
+                
+                // Fokus auf erstes Input setzen
+                setTimeout(() => {
+                    const firstInput = container.querySelector('input');
+                    if (firstInput) firstInput.focus();
+                }, 100);
+                
             } else {
-                // Keine Platzhalter → direkt anzeigen
-                document.getElementById('promptText').textContent = tmpl.prompt;
+                // Keine Platzhalter → direkt in textarea laden und anzeigen
+                document.getElementById('promptText').value = tmpl.prompt;
                 document.getElementById('result').classList.add('active');
                 document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
             }
@@ -1723,6 +1745,8 @@
 
         function closeLoadModal() {
             document.getElementById('loadTemplateModal').classList.remove('active');
+            document.getElementById('placeholderInputs').style.display = 'none';
+            document.getElementById('placeholderInputs').innerHTML = '';
             currentTemplateId = null;
         }
 
@@ -1735,10 +1759,11 @@
             const placeholderRegex = /\{\{([^}]+)\}\}/g;
             prompt = prompt.replace(placeholderRegex, (match, name) => {
                 const input = document.getElementById('ph_' + name);
-                return input ? (input.value.trim() || match) : match;
+                const val = input ? input.value.trim() : '';
+                return val || match; // wenn leer, Platzhalter beibehalten
             });
 
-            document.getElementById('promptText').textContent = prompt;
+            document.getElementById('promptText').value = prompt;
             document.getElementById('result').classList.add('active');
             document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
             closeLoadModal();
